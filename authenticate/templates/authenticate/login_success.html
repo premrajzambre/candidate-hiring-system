@@ -1,0 +1,52 @@
+{% extends 'authenticate/base.html' %}
+{% block content %}
+  {% if user.is_authenticated %}
+  <style>
+       .button {
+       border-radius: 4px;
+       background-color: #301934;
+       border: none;
+       color: white;
+       padding: 7px 35px;
+       text-align: center;
+       width:200px;
+       transition: all 0.5s;
+       font-size: 20px;
+       margin: 5px;
+       cursor: pointer;
+       }
+
+      .button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+      }
+
+      .button span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+      }
+
+      .button:hover span {
+      padding-right: 25px;
+      }
+
+      .button:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+    </style>
+    <h2 class="text-center">Instructions</h2>
+    <br><br>
+    <div class="col-md-6 offset-md-3">
+      <p class="lead"> Hey Welcome back <strong>{{ user.username }}</strong></p>
+      <p class="lead"> Click next to Dashboard.</p>
+      <button class="button" onclick="window.location.href = '{% url 'mainapp:hr_admin' %}';"><span>Next </span></button>
+    </div>
+  {% endif %}
+{% endblock %}

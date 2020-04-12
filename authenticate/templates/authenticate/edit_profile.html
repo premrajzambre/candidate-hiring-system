@@ -1,0 +1,51 @@
+{% extends 'mainapp/dashboard.html' %}
+{% block content %}
+<style media="screen">
+  .btn-secondary{
+    background: #e91d43;
+    border: 2px solid #e91d43;
+    border-radius: 0px;
+    width: 200px;
+    margin-top: 8px;
+    font-size: 18px;
+    
+  }
+
+  .btn-secondary:hover{
+    background: #e91d43;
+    border: 2px solid #e91d43;
+    color: #000000;
+  }
+</style>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="clo-lg-8 col-md-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="text-center" style="color:#e91d43;">Edit Profile</h2>
+          <form action="{% url 'edit_profile' %}" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+              <div class="alert alert-warning alert-dismissable" role="alert">
+                <button type="button" name="close" class="close" data-dismiss="alert">
+                  <small><sup>x</sup></small>
+                </button>
+                <p>Your Form Has Errors...</p>
+                {% for field in form %}
+                  {% if field.errors  %}
+                    {{ field.errors }}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+            {{ form.as_p }}
+            <input type="submit" value="Edit Profile" class="btn btn-secondary">
+          </form>
+          <br>
+          <h6><a href="{% url 'change_password' %}">Click Here to Change Password</a></h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

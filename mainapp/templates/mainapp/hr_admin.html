@@ -1,0 +1,11 @@
+{% extends 'mainapp/dashboard.html' %}
+{% block content %}
+  {% if user.is_authenticated %}
+    <style>
+      p{
+        color: white;
+      }
+    </style>
+    <p class="text-center">Welcome to Admin Panel</p>
+  {% endif %}
+{% endblock %}

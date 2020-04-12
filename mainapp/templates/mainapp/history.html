@@ -1,0 +1,8 @@
+{% extends "mainapp/dashboard.html" %}
+{% block content %}
+  {% if user.is_authenticated %}
+    <div class="history">
+      {{ loaded_data | safe }}
+    </div>
+  {% endif %}
+{% endblock %}

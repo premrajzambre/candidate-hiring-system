@@ -1,0 +1,32 @@
+{% extends 'mainapp/dashboard.html' %}
+{% block content %}
+  {% if user.is_authenticated %}
+    <script src="https://use.fontawesome.com/24a353018f.js"></script>
+    <script src="https://kit.fontawesome.com/cce33dda51.js" crossorigin="anonymous"></script>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="clo-lg-8 col-md-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <form class="md-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p style="color:white;">Import previous data (in '.csv' file format: 'Name, Email, Aptitude_Score, Technical_Score, Personality_Score')<br></p>
+                <div class="file-field">
+                  <a class="btn-floating purple-gradient mt-0 float-left">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <input type="file" name="document">
+                  </a>
+                  <button type="submit">Upload File</button><br><br>
+                  *Note: Ignore if already done.
+                </div>
+              </form>
+              {% if url %}
+                <p>Uploaded File: <a href="{{ url }}"></a>{{ url }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
