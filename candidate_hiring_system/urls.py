@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('authenticate.urls')),
     path('mainapp/',include('mainapp.urls', namespace='mainapp')),
+    path('quiz/', include('quiz.urls', namespace='quiz')),
 ]

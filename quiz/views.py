@@ -42,6 +42,3 @@ def result(request):
 
 def instructions(request):
     return render(request, 'quiz/instructions.html')
-
-def contact(request):
-    return render(request, 'quiz/contact.html')
