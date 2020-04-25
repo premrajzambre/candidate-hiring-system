@@ -1,16 +1,39 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="phoenix" sizes="76x76" href="{% static 'authenticate/css/phoenix.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'authenticate/css/phoenix.png' %}">
+    <meta name="viewreport" content="width=device-width,initial-scale-1.0">
+    <title>Quiz</title>
     <title>{% block title %} {% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'Bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'mystyle.css' %}">
     <script type="text/js" src = "{% static 'Bootstrap/js/bootstrap.min.js'%}">
     </script>
+    <style>
+      .navbar-brand{
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      margin-left: 10%;
+      }
+
+      .nav li a{
+      color: #aaa;
+      font-size: 1.2em;
+      }
+
+      body{
+        
+        background-color: #fcf7f8;
+      }
+    </style>
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse bg-dark">
      <div class="container">
        <div class="navbar-header">
          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -19,24 +42,24 @@
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
          </button>
-         <a class="navbar-brand" href="/quiz">Quiz</a>
+         <a class="navbar-brand" href="/quiz/quiz_home1">Quiz</a>
        </div>
        <div id="navbar" class="collapse navbar-collapse">
          <ul class="nav navbar-nav navbar-right">
-           <li><a href="/quiz">Home</a></li>
+           <li><a href="/quiz/quiz_home1">Home</a></li>
            <li><a href="/quiz/instructions">Instructions</a></li>
          </ul>
        </div><!--/.nav-collapse -->
      </div>
    </nav>
-   <div id="content" class = "container">
+   <div id="content" class = "container" style="">
       {% block content %}
       {% endblock %}
     </div>
     <footer class="footer">
       <div class="container">
         <p class="text-muted">
-          Quiz App Developed & Designed by APHA Devs.
+          <a href="{% url 'home' %}">Developed by Candidate Hiring System</a>
         </p>
       </div>
     </footer>

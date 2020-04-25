@@ -1,18 +1,50 @@
-{% extends "quiz.html" %}
-
-{% block title%}
-  Home
+{% extends 'quiz.html' %}
+{% block title %}
+    Home
 {% endblock %}
-
 {% block content %}
-  <h1 class="center">Welcome to Quiz 1.0</h1>
-  <h2>Select the catagory to begin with the quiz in that catagory</h2>
-  {% for choice in choices %}
-  <div class="row">
-    <div class="col-md-4">
-      <a href="/quiz/{{ choice.0 }}"><h3>{{ choice.1 }}</h3></a>
-    </div>
+    <style>
+        .instr{
+            font-size: 1.5em;
+        }
 
-  </div>
-  {% endfor %}
+        .btn{
+            margin-left: 50%;
+            color: #fff;
+            transform: translateX(-50%);
+            background: #e91d43;
+            padding: 10px 20px;
+            font-size: 1.5em;
+            font-weight: 400;
+        }
+
+        .btn:hover{
+        background: #e91e43;
+        color: #000000;
+        }
+    </style>
+    <h1 class="center">Welcome to Aptitude Test</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8  offset-md-3" style="margin:25px">
+                <h2>Instructions for the quiz</h2>
+                <ul class="instr">
+                    <li>You have 40 MCQs to solve in given time</li>
+                    <li>Don't open any other application or don't swap between tabs of your browser. Otherwise your exam will get submitted automatically</li>
+                    <li>You have to score minimum 60% score to pass the exam</li>
+                    <li>There are total 4 sections in the Aptitude Test <br>
+                        <ol>
+                            <li>Quantitative Aptitude</li>
+                            <li>Verbal Ability</li>
+                            <li>Maths</li>
+                            <li>General Knowledge</li>
+                        </ol>Make sure that you solved each section's questions in time.
+                    </li>
+                </ul><br><br>
+                <!--<button type="button" class="btn btn-secondary btn-md text-center">-->
+                    <a href="{% url 'quiz:start' %}" class="btn btn-md text-center">Start Quiz</a>
+                <!--</button>-->
+            </div>
+        </div>
+    </div>
 {% endblock %}

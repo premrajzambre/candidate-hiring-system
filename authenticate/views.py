@@ -81,5 +81,5 @@ def about(requests):
 def login_success(requests):
 	return render(requests, 'authenticate/login_success.html',{})
 
-"""def quiz(requests):
-	return render(requests, 'quiz/home.html', {})"""
+#def quiz(requests):
+#	return render(requests, 'quiz/instructions.html', {})

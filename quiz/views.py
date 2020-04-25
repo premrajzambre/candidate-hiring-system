@@ -2,10 +2,13 @@ from django.shortcuts import render
 from .models import Question
 
 # Create your views here.
-def quiz_home(request):
+def quiz_start(request):
     choices = Question.CAT_CHOICES
     print(choices)
-    return render(request, 'quiz/quiz_home.html', {'choices':choices})
+    return render(request, 'quiz/quiz_start.html', {'choices':choices})
+
+def quiz_home(request):
+    return render(request, 'quiz/quiz_home.html')
 
 def questions(request , choice):
     print(choice)
@@ -42,3 +45,11 @@ def result(request):
 
 def instructions(request):
     return render(request, 'quiz/instructions.html')
+
+def contact(request):
+    return render(request, 'quiz/contact.html')
+
+def start(request):
+    choices = Question.CAT_CHOICES
+    print(choices)
+    return render(request, 'quiz/start.html', {'choices':choices})

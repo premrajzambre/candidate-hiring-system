@@ -4,10 +4,10 @@ from django.db import models
 
 class Question(models.Model):
     CAT_CHOICES = (
-    ('aptitude','Aptitude'),
+    ('aptitude','Quantitative Aptitude'),
     ('verbalability','Verbal Ability'),
     ('maths','Maths'),
-    ('generalknowledge','GeneralKnowledge')
+    ('generalknowledge','General Knowledge')
     )
     question = models.CharField(max_length = 250)
     optiona = models.CharField(max_length = 100)
