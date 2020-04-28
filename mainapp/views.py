@@ -14,6 +14,7 @@ def upload(request):
         context['url'] = fs.url(name)
         global path
         path = fs.url(name)
+        path = path[1:]
         print (path)
     return render(request, 'mainapp/upload.html', context)
 
