@@ -1,0 +1,45 @@
+{% extends 'quiz.html' %}
+{% block content %}
+  <!--<h2>Registraion Form</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label class="label">Full Name</label>
+      <input type="full_name" class="form-control" placeholder="Full Name" value="">
+    </div>
+  </form>-->
+
+  <div class="container offset-md-2">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row" style="margin-top: 60px;">
+          <!--<div class="col-md-6">-->
+            <h2 style="border-bottom: 2px solid #f44c89; padding: 10px;">Registraion Form</h2>
+            <form method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="label control-label">Email</label>
+                <input type="email" class="form-control" placeholder="Email Address" name="email">
+              </div>
+              <div class="form-group">
+                <label class="label control-label">Full Name</label>
+                <input type="full_name" class="form-control" placeholder="Full Name" name="full_name">
+                <label class="label control-label">Aptitude Score</label>
+                <input type="aptitude_score" class="form-control" placeholder="Aptitude Score" name="aptitude_score">
+                <label class="label control-label">Full Name</label>
+                <input type="full_name" class="form-control" placeholder="Full Name" name="full_name">
+              </div>
+              <button type="submit" class="btn btn-secondary">Login</button>
+            </form>
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form action="{% url 'mainapp:application' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register" class="btn btn-secondary">
+  </form>
+{% endblock %}
