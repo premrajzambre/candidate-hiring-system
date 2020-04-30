@@ -40,7 +40,7 @@
               <label class="label control-label">Password</label>
               <input type="password" class="form-control" placeholder="Enter Password" name="password">
             </div>
-            <button type="submit" class="btn btn-secondary">Login</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#" class="text-center">Forget Password ?</a>
+            <button type="submit" class="btn btn-secondary">Login</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="{% url 'reset_password' %}" class="text-center">Forget Password ?</a>
             <p class="text-center"><a href="{% url 'register' %}">Not a registered member ? Register Here.</a></p>
           </form>
         </div>
