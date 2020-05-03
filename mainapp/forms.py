@@ -13,7 +13,7 @@ class CanPass(forms.Form):
 class ApplicationForm(ModelForm):
     class Meta:
         model = applicant
-        fields = ('email', 'full_name', 'contact', 'degree', 'degree_score','type','aptitude_score')
+        fields = ('email', 'full_name', 'contact', 'degree', 'degree_score','type')
 
     def __init__(self, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
@@ -42,7 +42,3 @@ class ApplicationForm(ModelForm):
         self.fields['type'].widget.attrs['class'] = 'form-control'
         self.fields['type'].widget.attrs['placeholder'] = '--choose--'
         self.fields['type'].label = 'I am  '
-
-        self.fields['aptitude_score'].widget.attrs['class'] = 'form-control'
-        #self.fields['aptitude_score'].widget.attrs['placeholder'] = 'Email'
-        self.fields['aptitude_score'].label = 'Aptitude Score  '
