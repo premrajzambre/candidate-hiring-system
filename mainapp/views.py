@@ -33,12 +33,16 @@ def history(request):
     context = {'loaded_data': data_html}
     return render(request, 'mainapp/history.html', context)
 
-def user_application(request):
-    form = ApplicationForm()
-    #email = form.cleaned_data['email']
-    #full_name = form.cleaned_data['full_name']
-    #print(email,full_name)
-    return render(request, 'mainapp/application.html', {'form':form})
+def application(request):
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponse('You filled the form successfully. We will contact you shortly. Thank You...!!!')
+    else:
+        form = ApplicationForm()
+    context = {'form': form}
+    return render(request, 'mainapp/application.html', context)
 
 def can_pass(request):
     sub = forms.CanPass()
