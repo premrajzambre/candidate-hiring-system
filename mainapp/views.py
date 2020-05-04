@@ -41,7 +41,7 @@ def application(request):
             info = form.save(commit=False)
             info.save()
             #return HttpResponse('You filled the form successfully. We will contact you shortly. Thank You...!!!')
-            return render(request, '/newquiz/newquiz_home',{})
+            return render(request, 'newquiz/home.html',{})
     else:
         form = ApplicationForm()
     context = {'form': form}
