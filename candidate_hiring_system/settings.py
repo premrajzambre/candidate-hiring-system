@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'candidate_hiring_system.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'candidate_hiring_system',
-        'USER': 'projectuser',
-        'PASSWORD': 'password',
+        'NAME': 'chs',
+        'USER': 'chsuser',
+        'PASSWORD': 'chs_user',
         'HOST': 'localhost',
         'PORT': '5432',
     }

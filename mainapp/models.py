@@ -23,8 +23,8 @@ class applicant(models.Model):
         ('Selected','Selected'),
         ('Rejected','Rejected')
     )
+    email=models.EmailField(primary_key=True)
     full_name=models.CharField(max_length=100)
-    email=models.EmailField()
     contact=PhoneField(blank=True,help_text='Start with country code')
     degree=models.CharField(max_length=10,choices=DEGREE_CHOICES)
     degree_score=models.IntegerField(choices=DEGREE_SCORE_CHOICES)
