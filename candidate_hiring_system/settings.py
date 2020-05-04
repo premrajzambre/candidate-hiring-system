@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mainapp',
     'quiz',
     'six',
+    'phone_field',
 ]
 
 MIDDLEWARE = [

@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.core.files.storage import FileSystemStorage
 from .forms import ApplicationForm
 from .forms import CanPass
+from django.http import HttpResponse
 # Create your views here.
 path = "as"
 def upload(request):
@@ -37,7 +38,8 @@ def application(request):
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            info = form.save(commit=False)
+            info.save()
             return HttpResponse('You filled the form successfully. We will contact you shortly. Thank You...!!!')
     else:
         form = ApplicationForm()
