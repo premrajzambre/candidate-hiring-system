@@ -1,0 +1,24 @@
+{% extends "newquiz/base.html" %}
+
+{% block title %}Quiz Home{% endblock %}
+
+{% block content %}
+  <h1 class="text-center">Quiz</h1>
+  <li>You have 40 MCQs to solve in given time</li>
+  <li>Don't open any other application or don't swap between tabs of your browser. Otherwise your exam will get submitted automatically</li>
+  <li>You have to score minimum 60% score to pass the exam</li>
+  <li>There are total 4 sections in the Aptitude Test <br>
+      <ol>
+          <li>Quantitative Aptitude</li>
+          <li>Verbal Ability</li>
+          <li>Maths</li>
+          <li>General Knowledge</li>
+      </ol>Make sure that you solved each section's questions in time.
+  </li>
+
+  <div class="text-center">
+    <a class="button" href="{% url 'newquiz:question_detail' question_id=question.id %}">
+      Start Quiz
+    </a>
+  </div>
+{% endblock %}

@@ -1,0 +1,146 @@
+body{
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-family: 'Baloo Thambi 2', cursive;
+  color: #fff;
+}
+
+.banner{
+  height: 100vh;
+  width: 100%;
+  background: url('banner.jpg');
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.banner .navbar{
+  margin-top: 2%;
+}
+
+.banner .navbar-brand{
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  margin-left: 10%;
+}
+
+.banner .nav{
+  margin-right: 10%;
+}
+
+.banner .nav li a{
+  color: #aaa;
+  font-size: 1.2em;
+}
+
+.banner .info{
+  margin-top: 15%;
+  transform: translateY(-15%);
+}
+
+.banner .info h1{
+  font-size: 2.5em;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.banner .info p{
+  font-size: 1.5em;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: #aaa;
+}
+
+.banner .info a{
+  margin-left: 50%;
+  color: #fff;
+  transform: translateX(-50%);
+  background: #e91d43;
+  padding: 10px 20px;
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.banner .info a:hover{
+  background: #e91e63;
+  color: #000000;
+}
+
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+ul{
+  margin-bottom: 50px;
+}
+
+ul a{
+  font-size: 29px;
+  color: white;
+}
+
+ul a:hover{
+  text-decoration: none;
+  color: #e91d43;
+}
+
+.label{
+  font-size: 20px;
+  color: white;
+  font-weight: normal;
+}
+
+.form-control{
+  background: transparent;
+  border-radius: 0px;
+  border: 0px;
+  border-bottom: 1px solid #f44c89;
+  margin-bottom: 30px;
+  font-size: 18px;
+  color: white;
+  padding: 20px;
+}
+
+.btn-secondary{
+  background: #e91d43;
+  border: 2px solid #e91d43;
+  border-radius: 0px;
+  width: 100px;
+  margin-top: 20px;
+  font-size: 18px;
+  background: transparent;
+}
+
+.btn-secondary:hover{
+  background: #e91d43;
+  border: 2px solid #e91d43;
+}
+
+a{
+  font-size: 18px;
+  margin-top: 20px;
+  color: white;
+}
+
+a:hover{
+  color: white;
+}
+
+p{
+  font-size: 18px;
+  margin-top: 40px;
+  color: white;
+}
+
+p:hover{
+  color: white;
+}
+
+img{
+  height: 477px;
+  width: 470px;
+}

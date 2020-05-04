@@ -1,0 +1,12 @@
+{% extends "newquiz/base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+  <h1 class="text-center">{{ title }}</h1>
+  <h2 class="text-center">{{ score }}%</h2>
+  <p>{{ description }}</p>
+  <div class="text-center">
+    <a class="button button-secondary" href="{% url 'newquiz:newquiz_home' %}">Retry</a>
+  </div>
+{% endblock %}

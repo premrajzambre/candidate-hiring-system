@@ -1,0 +1,23 @@
+{% extends "newquiz/base.html" %}
+
+{% block title %}{{ question.label }}{% endblock %}
+
+{% block content %}
+  <div class="question">
+    <div class="question-number">Question {{ question_number }} / {{ nb_questions }}</div>
+    <div class="question-body">
+      <h1 class="question-title">{{ question.label }}</h1>
+      <form method="post" action="">
+        {% csrf_token %}
+        {% for option in options %}
+          <label>
+            <input type="radio" name="option" value="{{ option.id }}">
+            {{ option.label }}
+          </label>
+        {% endfor %}
+
+        <button type="submit">Next</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
