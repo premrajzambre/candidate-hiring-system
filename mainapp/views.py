@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.core.files.storage import FileSystemStorage
 from .forms import ApplicationForm
@@ -40,8 +40,11 @@ def application(request):
         if form.is_valid():
             info = form.save(commit=False)
             info.save()
+            #form.save()
             #return HttpResponse('You filled the form successfully. We will contact you shortly. Thank You...!!!')
-            return render(request, 'newquiz/home.html',{})
+            #return render(request, 'authenticate/home.html',{})
+            #return render(request, 'newquiz/newquiz_home.html')
+            return redirect('/newquiz/newquiz_home')
     else:
         form = ApplicationForm()
     context = {'form': form}

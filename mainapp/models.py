@@ -1,5 +1,6 @@
 from django.db import models
 from phone_field import PhoneField
+from postgres_copy import CopyManager
 
 # Create your models here.
 class applicant(models.Model):
@@ -36,6 +37,7 @@ class applicant(models.Model):
     category=models.CharField(max_length=10,choices=CATEGORY_CHOICES,null=True,blank=True)
     hr_id=models.CharField(max_length=10,null=True)
     date_of_interview=models.DateField(null=True)
+    objects = CopyManager()
 
     def __str__(self):
         return self.email

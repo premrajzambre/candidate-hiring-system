@@ -4,7 +4,7 @@ from newquiz.models import Question
 
 def newquiz_home(request):
     question = Question.objects.first()
-    return render(request, 'newquiz/home.html', {'question': question})
+    return render(request, 'newquiz/newquiz_home.html', {'question': question})
 #--------------------------------------------------------------------------------
 def question_detail(request, question_id):
     question = get_object_or_404(Question, id=question_id)
