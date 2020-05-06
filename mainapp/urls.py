@@ -14,6 +14,7 @@ urlpatterns = [
     path('hr_admin', views.hr_admin, name = 'hr_admin'),
     path('application',views.application, name = 'application'),
     path('can_pass', views.can_pass, name = 'can_pass'),
+    path('new_process', views.new_process, name = 'new_process'),
 ]
 
 if settings.DEBUG:

@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from .forms import ApplicationForm
 from .forms import CanPass
 from django.http import HttpResponse
+from .models import applicant
 # Create your views here.
 path = "as"
 def upload(request):
@@ -26,12 +27,11 @@ def hr_admin(request):
 	return render(request, 'mainapp/hr_admin.html', {})
 
 def history(request):
-    import pandas as pd
-    global path
-    #path = 'C:\\Users\\premr\\BE Project\\selected1.csv'
-    data = pd.read_csv(path)
-    data_html = data.to_html()
-    context = {'loaded_data': data_html}
+    qs = applicant.objects.all()
+    title_contains_query = request.GET.get('title_contains')
+    if title_contains_query != '' and title_contains_query is not None:
+        qs = applicant.objects.get(hr_id__iexact=title_contains_query)
+    context = {'queryset': qs}
     return render(request, 'mainapp/history.html', context)
 
 def application(request):
@@ -67,3 +67,6 @@ def can_pass(request):
         messages.success(request, ('Email sent successfully.'))
         return render(request, 'home')
     return render(request, 'quiz/can_pass.html', {'form':sub})
+
+def new_process(request):
+	return render(request, 'mainapp/new_process.html', {})
