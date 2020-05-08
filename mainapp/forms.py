@@ -43,3 +43,9 @@ class ApplicationForm(ModelForm):
         self.fields['type'].widget.attrs['class'] = 'form-control'
         self.fields['type'].widget.attrs['placeholder'] = '--choose--'
         self.fields['type'].label = 'I am  '
+
+class ApplicantSearchForm(forms.ModelForm):
+    #date_of_interview=forms.DateField()
+    class Meta:
+        model = applicant
+        fields = ['hr_id']

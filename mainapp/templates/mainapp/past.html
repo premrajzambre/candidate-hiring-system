@@ -1,4 +1,5 @@
 {% extends "mainapp/dashboard.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
   {% if user.is_authenticated %}
   <style>
@@ -14,11 +15,12 @@
   </style>
   <main role="main" class="container">
     <hr class="style-one"/><br>
-    <form action="." method="GET">
+    <form action="" method="post">
+      {% csrf_token %}
       <div class="form-row">
           <div class="form-group col-4">
               <div class="input-group">
-                  <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="   HR ID exact..." />
+                  <input class="form-control py-2 border-right-0 border" type="search" name="hr_id" placeholder="   HR ID exact..." />
                   <span class="input-group-append">
                       <div class="input-group-text">
                           <i class="fa fa-search"></i>
@@ -41,25 +43,33 @@
             {% endfor %}
           </select>
         </div>-->
-        &nbsp; &nbsp; &nbsp; <button type="submit" class="btn btn-primary">Search</button>
+        &nbsp; &nbsp; &nbsp; <!--<button type="submit" class="btn btn-primary">Search</button>--><input class="btn btn-primary" type="submit" value="Search" />
       </div>
 
     </form><br>
+    <!--<form method="post" action="">
+      {% csrf_token %}
+      {{form|crispy}}
+      <div class="form-group col-md-2 col-lg-2">
+        <label for="date_of_interview">Interview date</label>
+        <input type="date" class="form-control" id="date_of_interview" name="date_of_interview">
+      </div>
+      <input class="btn btn-primary" type="submit" value="Search" />
+  </form>-->
     <hr class="style-one"/>
     <div class="row">
         <ul>
           {% for applicant in queryset %}
             <li>
-              <span>Email: {{ applicant.email }}</span><br>
               <span>Name: {{ applicant.full_name }}</span><br>
-              <span>Contact: {{ applicant.contact }}</span><br>
+              <span>Email: {{ applicant.email }}</span> &nbsp; &nbsp; &nbsp; <span>Contact: {{ applicant.contact }}</span><br>
               <span>Highest Qualification with marks : {{ applicant.degree }} : {{ applicant.degree_score }}</span><br>
               <span>Type : {{ applicant.type }}</span><br>
-              <span>Aptitude Score : {{ applicant.aptitude_score }}</span><br>
-              <span>Technical Score : {{ applicant.technical_score }}</span><br>
+              <span>Aptitude Score : {{ applicant.aptitude_score }}</span>&nbsp; &nbsp; &nbsp;
+              <span>Technical Score : {{ applicant.technical_score }}</span>&nbsp; &nbsp; &nbsp;
               <span>Personality Score : {{ applicant.personality_score }}</span><br>
               <span>Category : {{ applicant.category }}</span><br>
-              <span>HR ID : {{ applicant.hr_id }}</span><br>
+              <span>HR ID : {{ applicant.hr_id }}</span>&nbsp; &nbsp; &nbsp;
               <span>Interview Date : {{ applicant.date_of_interview }}</span>
             </li>
             <hr />

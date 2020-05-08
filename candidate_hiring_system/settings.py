@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'newquiz',
     'six',
     'phone_field',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [

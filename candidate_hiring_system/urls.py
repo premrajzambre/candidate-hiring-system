@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from mainapp.views import history
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('authenticate.urls')),
     path('mainapp/',include('mainapp.urls', namespace='mainapp')),
+    #path('past', history, name='past'),
     path('newquiz/', include('newquiz.urls', namespace='newquiz')),
 ]

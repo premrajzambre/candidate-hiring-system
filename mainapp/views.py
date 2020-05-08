@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.core.files.storage import FileSystemStorage
 from .forms import ApplicationForm
-from .forms import CanPass
+from .forms import CanPass, ApplicantSearchForm
 from django.http import HttpResponse
 from .models import applicant
 # Create your views here.
@@ -26,13 +26,38 @@ def dashboard(request):
 def hr_admin(request):
 	return render(request, 'mainapp/hr_admin.html', {})
 
-def history(request):
+def is_valid_queryparam(param):
+    return param != '' and param is not None
+
+def filter(request):
     qs = applicant.objects.all()
     title_contains_query = request.GET.get('title_contains')
+    date_of_interview = request.GET.get('date_of_interview')
+
+    if is_valid_queryparam(title_contains_query):
+        qs = qs.filter(email__iexact=title_contains_query)
+
+    if is_valid_queryparam(date_of_interview):
+        qs = qs.filter(date_of_interview__gte=date_of_interview)
+
+    return qs
+
+def history(request):
+    #qs = filter(request)
+    """title_contains_query = request.GET.get('title_contains')
     if title_contains_query != '' and title_contains_query is not None:
-        qs = applicant.objects.get(hr_id__iexact=title_contains_query)
-    context = {'queryset': qs}
-    return render(request, 'mainapp/history.html', context)
+        qs = applicant.objects.get(hr_id__iexact=title_contains_query)"""
+    #context = {'queryset': qs}
+    #title = 'List of all items'
+    form = ApplicantSearchForm(request.POST or None)
+    context = {'form': form,}
+    if request.method == 'POST':
+        queryset = applicant.objects.all().filter(hr_id__iexact=request.POST.get('hr_id'),date_of_interview__icontains=request.POST.get('date_of_interview'))
+        context = {
+        'queryset': queryset,
+        'form': form,
+        }
+    return render(request, 'mainapp/past.html', context)
 
 def application(request):
     if request.method == 'POST':
