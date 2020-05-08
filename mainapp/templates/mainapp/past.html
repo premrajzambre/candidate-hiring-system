@@ -9,11 +9,54 @@
       background: #333;
       background-image: linear-gradient(to right, gray, #fff, gray);
     }
+    hr.style-two {
+      overflow: visible; /* For IE */
+      height: 3px;
+      border-style: solid;
+      border-color: white;
+      border-width: 1px 0 0 0;
+      border-radius: 20px;
+    }
+    hr.style-two:before { /* Not really supposed to work, but does */
+      display: block;
+      content: "";
+      height: 30px;
+      margin-top: -31px;
+      border-style: solid;
+      border-color: white;
+      border-width: 0 0 1px 0;
+      border-radius: 20px;
+    }
     ul{
       color: #fff;
     }
+
+    #employee_data {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #employee_data td, #employee_data th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    #employee_data tr:nth-child(even){background-color: #f2f2f2;}
+
+    #employee_data tr:nth-child(odd){background-color: #fff;}
+
+    #employee_data tr:hover {background-color: #ddd;}
+
+    #employee_data th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
   </style>
-  <main role="main" class="container">
+  <main role="main" class="container-fluid">
     <hr class="style-one"/><br>
     <form action="" method="post">
       {% csrf_token %}
@@ -58,7 +101,39 @@
   </form>-->
     <hr class="style-one"/>
     <div class="row">
-        <ul>
+      <table id="employee_data">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Highest Degree</th>
+          <th>Degree Score</th>
+          <th>Type</th>
+          <th>Aptitude Score</th>
+          <th>Technical Score</th>
+          <th>Personality Score</th>
+          <th>Category</th>
+          <th>HR ID</th>
+          <th>Interview Date</th>
+        </tr><hr class="style-two" />
+        {% for applicant in queryset %}
+        <tr>
+          <td>{{ applicant.full_name }}</td>
+          <td>{{ applicant.email }}</td>
+          <td>{{ applicant.contact }}</td>
+          <td>{{ applicant.degree }}</td>
+          <td>{{ applicant.degree_score }}</td>
+          <td>{{ applicant.type }}</td>
+          <td>{{ applicant.aptitude_score }}</td>
+          <td>{{ applicant.technical_score }}</td>
+          <td>{{ applicant.personality_score }}</td>
+          <td>{{ applicant.category }}</td>
+          <td>{{ applicant.hr_id }}</td>
+          <td>{{ applicant.date_of_interview }}</td>
+        </tr><hr class="style-two" />
+        {% endfor %}
+      </table>
+        <!--<ul>
           {% for applicant in queryset %}
             <li>
               <span>Name: {{ applicant.full_name }}</span><br>
@@ -74,7 +149,7 @@
             </li>
             <hr />
           {% endfor %}
-        </ul>
+        </ul>-->
       </div>
   </main>
   {% endif %}
