@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.core.files.storage import FileSystemStorage
 from .forms import ApplicationForm
 from .forms import CanPass, ApplicantSearchForm
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import applicant
+from rest_framework.views import APIView
+from rest_framework.response import Response
 # Create your views here.
 path = "as"
 def upload(request):
@@ -23,8 +25,34 @@ def upload(request):
 def dashboard(request):
 	return render(request, 'mainapp/dashboard.html', {})
 
-def hr_admin(request):
-	return render(request, 'mainapp/hr_admin.html', {})
+#qw=applicant.objects.all().count()
+#dte=applicant.objects.latest('date_of_interview')
+#dtecount=applicant.objects.filter(date_of_interview__iexact=dte).count()
+
+def get_data(request, *args, **kwargs):
+    data = {
+    "selected":100,
+    "rejected":10,
+    }
+    return JsonResponse(data)
+
+class hr_admin_View(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'mainapp/hr_admin.html', {'selected': 100})
+
+class ChartView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        qs_count = applicant.objects.all().count()
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+        default_items : [qs_count, 819, 753, 555, 652, 300]
+        data = {
+        "labels":labels,
+        "default":default_items,
+        }
+        return Response(data)
 
 def is_valid_queryparam(param):
     return param != '' and param is not None
@@ -43,14 +71,14 @@ def filter(request):
     return qs
 
 def history(request):
-    #qs = filter(request)
+    qs = filter(request)
     """title_contains_query = request.GET.get('title_contains')
     if title_contains_query != '' and title_contains_query is not None:
         qs = applicant.objects.get(hr_id__iexact=title_contains_query)"""
     #context = {'queryset': qs}
     #title = 'List of all items'
-    form = ApplicantSearchForm(request.POST or None)
-    context = {'form': form,}
+    #form = ApplicantSearchForm(request.POST or None)
+    context = {'queryset': qs,}
     if request.method == 'POST':
         queryset = applicant.objects.all().filter(hr_id__iexact=request.POST.get('hr_id'),date_of_interview__icontains=request.POST.get('date_of_interview'))
         context = {

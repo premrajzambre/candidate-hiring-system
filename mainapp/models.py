@@ -21,8 +21,8 @@ class applicant(models.Model):
         ('Experienced','Experienced')
     )
     CATEGORY_CHOICES = (
-        ('Selected','Selected'),
-        ('Rejected','Rejected')
+        ('1','Selected'),
+        ('0','Rejected')
     )
     email=models.EmailField(primary_key=True)
     full_name=models.CharField(max_length=100)
