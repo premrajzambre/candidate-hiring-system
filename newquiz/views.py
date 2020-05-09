@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from newquiz.models import Question
+from .forms import PassForm
+from mainapp.models import applicant
 #from quiz.utils import get_rank
 
 def newquiz_home(request):
@@ -47,6 +49,20 @@ def newquiz_results(request):
     score_percentage = int(score / total_questions * 100)
     rank = get_rank(score_percentage)
     del request.session['answers']
+
+    form=PassForm(request.POST or None)
+    response = "Thanks for showing interest in us. We'll contact you shortly. Please enter your email id :"
+    context = {
+        'score': score_percentage,
+        'title': rank['title'],
+        'description': rank['description'],
+        'response': response,
+        'form':form
+    }
+    if score_percentage > 60:
+        em=form['email'].value()
+        applicant.objects.filter(pk=em).update(aptitude_score=score_percentage)
+        return render(request, 'newquiz/results.html', context)
 
     return render(request, 'newquiz/results.html', {
         'score': score_percentage,

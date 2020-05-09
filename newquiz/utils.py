@@ -4,7 +4,7 @@ def get_rank(score_percentage):
         [75, "Well done!", "You know more than most people!"],
         [50, "Not bad!", "Please improve your performance."],
         [25, "Uh oh!", "You seriously need to work on yourself"],
-        [0, "Not good!", "Did you do it on purpose ??"],
+        [0, "Not good!", "You are too bad"],
     ]
 
     for rank in ranks:
