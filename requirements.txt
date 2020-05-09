@@ -11,6 +11,7 @@ Django>=3.0.6
 django-crispy-forms>=1.9.0
 django-phone-field>=1.8.0
 django-postgres-copy>=2.4.2
+djangorestframework>=3.11.0
 html5lib>=1.0.1
 idna>=2.8
 ipaddr>=2.2.0
