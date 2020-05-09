@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from . import views
 from .forms import ApplicationForm
 from django.views.generic import TemplateView
+from .views import get_data, hr_admin_View, ChartView
 
 app_name = 'mainapp'
 
@@ -12,7 +13,9 @@ urlpatterns = [
     path('upload', views.upload, name = 'upload'),
     path('dashboard', views.dashboard, name = 'dashboard'),
     path('past', views.history, name = 'past'),
-    path('hr_admin', views.hr_admin, name = 'hr_admin'),
+    path('hr_admin', hr_admin_View.as_view(), name = 'hr_admin'),
+    path('api/data/',get_data,name='api-data'),
+    path('api/chart/data/',ChartView.as_view()),
     path('application',views.application, name = 'application'),
     path('can_pass', views.can_pass, name = 'can_pass'),
     path('new_process', views.new_process, name = 'new_process'),
