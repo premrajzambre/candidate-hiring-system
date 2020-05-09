@@ -101,7 +101,8 @@ def application(request):
             #return HttpResponse('You filled the form successfully. We will contact you shortly. Thank You...!!!')
             #return render(request, 'authenticate/home.html',{})
             #return render(request, 'newquiz/newquiz_home.html')
-            return redirect('/newquiz/newquiz_home')
+            #return redirect('/newquiz/newquiz_home')
+            return redirect('home')
     else:
         form = ApplicationForm()
     context = {'form': form}

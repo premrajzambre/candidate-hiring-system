@@ -8,9 +8,9 @@
   <p class="text-center">{{ description }}</p>
   <p class="text-center">{{ response }}</p>
   <div class="text-center">
-    <!--<a class="button button-secondary" href="{% url 'newquiz:newquiz_home' %}">Retry</a>-->
+    <a class="button button-secondary" href="{% url 'mainapp:application' %}">Application Form</a>
     <!--<input class="form-control py-2 border-right-0 border" type="search" name="email" placeholder="   Email ID" />-->
-    {{ form.as_p }}
-    <input class="button button-secondary" type="submit" value="Exit" />
+    <!--{{ form.as_p }}
+    <input class="button button-secondary" type="submit" value="Exit" />-->
   </div>
 {% endblock %}
