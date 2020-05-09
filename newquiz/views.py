@@ -64,7 +64,7 @@ def newquiz_results(request):
         applicant.objects.filter(pk=em).update(aptitude_score=score_percentage)
         return render(request, 'newquiz/results.html', context)
     else:
-        return return HttpResponse('Thank You for showing such a greatfull interest towards us. Better luck next time...!!!')
+        return HttpResponse('Thank You for showing such a greatfull interest towards us. Better luck next time...!!!')
 """
     return render(request, 'newquiz/results.html', {
         'score': score_percentage,
