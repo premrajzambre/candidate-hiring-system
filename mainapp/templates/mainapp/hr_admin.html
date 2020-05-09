@@ -1,14 +1,14 @@
 {% extends 'mainapp/dashboard.html' %}
 <script>
   {% block jquery %}
-    var endpoint = 'mainapp/api/chart/data'
+    var endpoint = '/mainapp/api/chart/data/'
     var defaultData = []
     var labels = [];
     $.ajax({
       method: "GET",
       url: endpoint,
       success: function(data){
-        labels = data.lables
+        labels = data.labels
         defaultData = data.default
         setChart()
       },
@@ -132,7 +132,7 @@
   <hr class="style-one"/>
   <h2 class="text-center" style="color:#e91d43;">Statistics</h2>
   <div class="row">
-    <div class="col-sm-12" url-endpoint="{% url 'mainapp:api-data' %}">
+    <div class="col-sm-4" url-endpoint="{% url 'mainapp:chart-data' %}">
       <canvas id="myChart" width="400" height="400"></canvas>
 
     </div>

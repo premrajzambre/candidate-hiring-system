@@ -46,13 +46,17 @@ class ChartView(APIView):
 
     def get(self, request, format=None):
         qs_count = applicant.objects.all().count()
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
-        default_items : [qs_count, 819, 753, 555, 652, 300]
+        labels= ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+        default_items = [qs_count, 819, 753, 555, 652, 300]
         data = {
-        "labels":labels,
-        "default":default_items,
+            "labels":labels,
+            "default":default_items,
         }
         return Response(data)
+
+class StatisticsView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'mainapp/statistics.html', {'selected': 100})
 
 def is_valid_queryparam(param):
     return param != '' and param is not None

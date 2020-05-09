@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from . import views
 from .forms import ApplicationForm
 from django.views.generic import TemplateView
-from .views import get_data, hr_admin_View, ChartView
+from .views import get_data, hr_admin_View, ChartView, StatisticsView
 
 app_name = 'mainapp'
 
@@ -15,10 +15,11 @@ urlpatterns = [
     path('past', views.history, name = 'past'),
     path('hr_admin', hr_admin_View.as_view(), name = 'hr_admin'),
     path('api/data/',get_data,name='api-data'),
-    path('api/chart/data/',ChartView.as_view()),
+    path('api/chart/data/',ChartView.as_view(),name='chart-data'),
     path('application',views.application, name = 'application'),
     path('can_pass', views.can_pass, name = 'can_pass'),
     path('new_process', views.new_process, name = 'new_process'),
+    path('statistics', StatisticsView.as_view(), name = 'statistics'),
 ]
 
 if settings.DEBUG:
