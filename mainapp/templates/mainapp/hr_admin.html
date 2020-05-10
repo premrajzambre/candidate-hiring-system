@@ -20,29 +20,25 @@
 
     function setChart(){
       var ctx = document.getElementById('myChart');
+      var ctx2 = document.getElementById("myChart2");
+
       var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
               labels: labels,
               datasets: [{
-                  label: '# of Votes',
+                  label: 'Count',
                   data: defaultData,
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
                       'rgba(255, 206, 86, 0.2)',
                       'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)'
-                  ],
+                      'rgba(255, 99, 132, 0.2)',
+                      ],
                   borderColor: [
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
                       'rgba(255, 206, 86, 1)',
                       'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)'
-                  ],
+                      'rgba(255, 99, 132, 1)',
+                      ],
                   borderWidth: 1
               }]
           },
@@ -56,8 +52,39 @@
               }
           }
       });
-    }
 
+
+    var myChart2 = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Count',
+                data: defaultData,
+                backgroundColor: [
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    ],
+                borderColor: [
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+  }
 
   {% endblock %}
 </script>
@@ -115,7 +142,7 @@
       <div class="card-deck">
         <div class="card">
           <div class="card-body text-center">
-            <h3>See Previous Data</h3>
+            <h3>See Previous Interview Data</h3>
             <button class="button" onclick="window.location.href = '{% url 'mainapp:past' %}';"><span>Search </span></button>
           </div>
         </div>
@@ -125,17 +152,32 @@
             <button class="button" onclick="window.location.href = '{% url 'mainapp:new_process' %}';"><span>Start </span></button>
           </div>
         </div>
+        <div class="card">
+          <div class="card-body text-center">
+            <h3>Send invitation for Interview</h3>
+            <button class="button" onclick="window.location.href = '#';"><span>Send </span></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <br>
-  <hr class="style-one"/>
-  <h2 class="text-center" style="color:#e91d43;">Statistics</h2>
-  <div class="row">
-    <div class="col-sm-4" url-endpoint="{% url 'mainapp:chart-data' %}">
-      <canvas id="myChart" width="400" height="400"></canvas>
-
+  <hr class="style-one"/><br><br>
+  <div class="container-fluid">
+    <h2 class="text-center" style="color:#e91d43;">Statistics</h2>
+    <div class="row">
+      <div class="col-md-8 offset-md-3" url-endpoint="{% url 'mainapp:chart-data' %}">
+        <div class="col-md-6">
+          <canvas id="myChart" width="200" height="200"></canvas>
+          <h3 class="text-center" style="color:#fff;">Bar Graph</h3>
+        </div>
+        <div class="col-md-6">
+          <canvas id="myChart2" width="200" height="200"></canvas>
+          <h3 class="text-center" style="color:#fff;">Doughnut Graph</h3>
+        </div>
+      </div>
     </div>
   </div>
+
   {% endif %}
 {% endblock %}
