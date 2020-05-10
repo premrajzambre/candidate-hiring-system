@@ -60,8 +60,8 @@ def newquiz_results(request):
     }
 
     if score_percentage > 60:
-        em=form['email'].value()
-        applicant.objects.filter(pk=em).update(aptitude_score=score_percentage)
+        #em=form['email'].value()
+        #applicant.objects.filter(pk=em).update(aptitude_score=score_percentage)
         return render(request, 'newquiz/results.html', context)
     else:
         return HttpResponse('Thank You for showing such a greatfull interest towards us. Better luck next time...!!!')
