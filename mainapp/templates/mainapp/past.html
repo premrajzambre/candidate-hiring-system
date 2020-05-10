@@ -55,6 +55,9 @@
       background-color: #4CAF50;
       color: white;
     }
+    .form-control{
+      background-color: transparent;
+    }
   </style>
   <main role="main" class="container-fluid">
     <hr class="style-one"/><br>
@@ -63,6 +66,7 @@
       <div class="form-row">
           <div class="form-group col-4">
               <div class="input-group">
+                  <label for="hr_id">HR ID</label>
                   <input class="form-control py-2 border-right-0 border" type="search" name="hr_id" placeholder="   HR ID exact..." />
                   <span class="input-group-append">
                       <div class="input-group-text">
@@ -133,6 +137,9 @@
         </tr><hr class="style-two" />
         {% endfor %}
       </table>
+      <script>
+        $("table").tableExport();
+      </script>
         <!--<ul>
           {% for applicant in queryset %}
             <li>

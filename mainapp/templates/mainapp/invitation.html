@@ -1,0 +1,16 @@
+{% extends 'mainapp/dashboard.html' %}
+{% block content %}
+<div>
+  <form method="post">
+    {% csrf_token %}
+    <label for="message"></label>
+    <textarea name="msg" rows="8" cols="80">'Dear Candidate,
+       Congratulations! We are glad to inform you that we will be taking your candidature forward in the
+       Selection process based on your performance in the online assessment.
+       Venue:
+       Date : DD/MM/YYYY    Time:
+       Sent from candidate_hiring_system'</textarea><br>
+    <input class="btn btn-secondary" type="submit" name="sent" value="Sent">
+  </form>
+</div>
+{% endblock %}

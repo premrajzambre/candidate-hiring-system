@@ -19,6 +19,7 @@ urlpatterns = [
     path('application',views.application, name = 'application'),
     path('can_pass', views.can_pass, name = 'can_pass'),
     path('new_process', views.new_process, name = 'new_process'),
+    path('invitation', views.invitation, name = 'invitation'),
     path('statistics', StatisticsView.as_view(), name = 'statistics'),
 ]
 

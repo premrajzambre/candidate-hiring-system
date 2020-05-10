@@ -7,6 +7,11 @@ from django.http import HttpResponse, JsonResponse
 from .models import applicant
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.db.models import Q
+from candidate_hiring_system.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+from django.contrib import messages
+
 # Create your views here.
 path = "as"
 def upload(request):
@@ -45,9 +50,16 @@ class ChartView(APIView):
     permission_classes = []
 
     def get(self, request, format=None):
-        qs_count = applicant.objects.all().count()
-        labels= ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
-        default_items = [qs_count, 819, 753, 555, 652, 300]
+        #qs_count = applicant.objects.all().count()
+        ob=applicant.objects.filter(date_of_interview__icontains='').order_by('-date_of_interview').first()
+        #print(ob)
+        dt=applicant.objects.values_list('date_of_interview', flat=True).get(pk=ob)
+        #print(we)
+        tc=applicant.objects.filter(date_of_interview=dt).count()
+        sc=applicant.objects.filter(Q(date_of_interview__gte=dt), Q(category=1)).count()
+        rj=tc-sc
+        labels= ['Total Applicants', 'Selected', 'Rejected']
+        default_items = [tc, sc, rj]
         data = {
             "labels":labels,
             "default":default_items,
@@ -128,3 +140,15 @@ def can_pass(request):
 
 def new_process(request):
 	return render(request, 'mainapp/new_process.html', {})
+
+def invitation(request):
+    dt=applicant.objects.values_list('email', flat=True).get(technical_score=0)
+    #for data in dt:
+    if request.method == 'POST':
+        subject = 'Candidate Hiring System | Congratulations'
+        message = request.POST.get('msg')
+        recepient = dt
+        send_mail(subject,message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+        messages.success(request, ('Invitation sent successfully.'))
+        return redirect('/mainapp/hr_admin')
+    return render(request, 'mainapp/invitation.html',{})
