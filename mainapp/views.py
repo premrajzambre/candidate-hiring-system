@@ -30,10 +30,6 @@ def upload(request):
 def dashboard(request):
 	return render(request, 'mainapp/dashboard.html', {})
 
-#qw=applicant.objects.all().count()
-#dte=applicant.objects.latest('date_of_interview')
-#dtecount=applicant.objects.filter(date_of_interview__iexact=dte).count()
-
 def get_data(request, *args, **kwargs):
     data = {
     "selected":100,
@@ -109,41 +105,20 @@ def application(request):
         if form.is_valid():
             info = form.save(commit=False)
             info.save()
-            #form.save()
-            #return HttpResponse('You filled the form successfully. We will contact you shortly. Thank You...!!!')
-            #return render(request, 'authenticate/home.html',{})
-            #return render(request, 'newquiz/newquiz_home.html')
-            #return redirect('/newquiz/newquiz_home')
             return redirect('home')
     else:
         form = ApplicationForm()
     context = {'form': form}
     return render(request, 'mainapp/application.html', context)
 
-def can_pass(request):
-    sub = forms.CanPass()
-    #global score
-    #global total
-    #eff = (score/total)*100
-    #global eff
-    #print (eff)
-    #if eff >= 60:
-    if request.method == 'POST':
-        sub = forms.CanPass(request.POST)
-        subject = 'Candidate Hiring System | Congratulations'
-        message = 'Dear Candidate,\n\tCongratulations! We are glad to inform you that we will be taking your candidature forward in the Selection process based on your performance in the online assessment.\n Click the link below to fill some primary details http://localhost:8000/mainapp/application \n\n\n\t\t Sent from candidate_hiring_system project'
-        recepient = request.POST['email']
-        send_mail(subject,message, EMAIL_HOST_USER, [recepient], fail_silently = False)
-        messages.success(request, ('Email sent successfully.'))
-        return render(request, 'home')
-    return render(request, 'quiz/can_pass.html', {'form':sub})
+def salary(request):
+    return render(request, 'mainapp/salary.html', {})
 
 def new_process(request):
 	return render(request, 'mainapp/new_process.html', {})
 
 def invitation(request):
     dt=applicant.objects.values_list('email', flat=True).get(technical_score=0)
-    #for data in dt:
     if request.method == 'POST':
         subject = 'Candidate Hiring System | Congratulations'
         message = request.POST.get('msg')
