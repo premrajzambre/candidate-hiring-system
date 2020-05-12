@@ -17,7 +17,7 @@
         width: 200px;
         margin-top: 8px;
         font-size: 18px;
-        margin-left:20%;
+        margin-left:9%;
       }
 
       .btn-secondary:hover{
@@ -31,7 +31,7 @@
         padding: 0;
         background: #fff;
         font-family: 'Baloo Thambi 2', cursive;
-        color: #fff;
+        color: #000000;
         background-color: #fff;
       }
 
@@ -81,8 +81,19 @@
         text-decoration: none;
         color: #e91d43;
       }
-
-
+      .alert{
+        color: #000000;
+      }
+      #salary_data {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+      }
+      table, th, td {
+        border: 1px solid black;
+        padding: 5px;
+        color: black;
+      }
     </style>
   </head>
   <body>
@@ -94,27 +105,37 @@
           </nav>
           <h3 class="text-center" style="color:#e91d43;">Salary Prediction</h3>
         </div>
-        <div class="container" style="margin-top: 30px;padding:20px; box-shadow: 0px 1px 0px 10px gray;">
+        <div class="container offset" style="margin-top: 30px;padding:20px; box-shadow: 0px 1px 0px 10px gray;">
           <div class="col-md-8  offset-md-3" style="margin:20px">
-
+            <table id="salary_data">
+              <tr>
+                <th>Position</th>
+                <th>Level</th>
+              </tr>
+              <tr><td>Associate Engineer</td><td>1</td></tr>
+              <tr><td>Senior Engineer</td><td>2</td></tr>
+              <tr><td>Team Leader</td><td>3</td></tr>
+              <tr><td>Project Architect</td><td>4</td></tr>
+              <tr><td>Project Scrum Master</td><td>5</td></tr>
+              <tr><td>Project/Delivery Manager</td><td>6</td></tr>
+              <tr><td>Department Head</td><td>7</td></tr>
+              <tr><td>Voice President</td><td>8</td></tr>
+              <tr><td>Senior Voice President</td><td>9</td></tr>
+              <tr><td>CEO</td><td>10</td></tr>
+            </table><br><br>
+            <p><strong>Note: </strong>Check out above table. Check your position level and enter the level number below in text box and hit Predict button.</p>
             <form method="POST" action="">
               {% csrf_token %}
-              {% if form.errors %}
-                <div class="alert alert-warning alert-dismissable" role="alert">
-                  <button class="close" data-dismiss="alert">
-                    <small><sup>x</sup></small>
-                  </button>
-                  <p>Your Form Has Errors...</p>
-                  {% for field in form %}
-                    {% if field.errors  %}
-                      {{ field.errors }}
-                    {% endif %}
-                  {% endfor %}
-                </div>
-              {% endif %}
               {{ form.as_p }}
               <input type="submit" value="Predict" class="btn btn-secondary">
             </form>
+            {% if messages %}
+              {% for message in messages %}
+              <div class="alert" role="alert">
+                <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+              </div>
+              {% endfor %}
+            {% endif %}
           </div>
         </div>
       </div>

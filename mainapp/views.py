@@ -1,16 +1,28 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 from django.core.files.storage import FileSystemStorage
-from .forms import ApplicationForm
+from .forms import ApplicationForm, Salaryprediction
 from .forms import CanPass, ApplicantSearchForm
 from django.http import HttpResponse, JsonResponse
 from .models import applicant
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from django.core import serializers
 from django.db.models import Q
 from candidate_hiring_system.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 from django.contrib import messages
+import pickle
+from sklearn.externals import joblib
+import json
+import numpy as np
+from sklearn import preprocessing
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
 
 # Create your views here.
 path = "as"
@@ -112,7 +124,35 @@ def application(request):
     return render(request, 'mainapp/application.html', context)
 
 def salary(request):
-    return render(request, 'mainapp/salary.html', {})
+    if request.method == 'POST':
+        form = Salaryprediction(request.POST)
+        if form.is_valid():
+            level=form.cleaned_data['level']
+            print(level)
+            ans=salarystatus(level)
+            messages.success(request, "Your salary range is from {} Lpa to {} Lpa".format(ans[0],ans[1]))
+            print(ans)
+    form=Salaryprediction()
+    context={
+        'form':form
+    }
+    return render(request, 'mainapp/salary.html', context)
+
+def salarystatus(X):
+    try:
+        salmdl = joblib.load('media/salary_predict.pkl')
+        y_pred=salmdl.predict(X)
+        y_pred=y_pred[0]
+        s_min=(int)(y_pred-100000)/100000
+        s_min=(int)(s_min)
+        s_max=(y_pred+100000)/100000
+        s_max=(int)(s_max)
+        print(y_pred)
+        print(s_min)
+        print(s_max)
+        return (s_min,s_max)
+    except ValueError as e:
+        return (e.args[0])
 
 def new_process(request):
 	return render(request, 'mainapp/new_process.html', {})
@@ -127,3 +167,10 @@ def invitation(request):
         messages.success(request, ('Invitation sent successfully.'))
         return redirect('/mainapp/hr_admin')
     return render(request, 'mainapp/invitation.html',{})
+
+def temp(request):
+    #import pandas as pd
+    data = pd.read_csv('media/Salary.csv')
+    data_html = data.to_html()
+    context = {'loaded_data': data_html}
+    return render(request, 'mainapp/temp.html', context)

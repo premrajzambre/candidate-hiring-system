@@ -53,3 +53,9 @@ class ApplicantSearchForm(forms.ModelForm):
     class Meta:
         model = applicant
         fields = ['hr_id']
+
+class Salaryprediction(forms.Form):
+    level = forms.IntegerField()
+
+    def __str__(self):
+        return self.level

@@ -1,14 +1,17 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 from .forms import ApplicationForm
 from django.views.generic import TemplateView
+from rest_framework import routers
 from .views import get_data, hr_admin_View, ChartView, StatisticsView
 
 app_name = 'mainapp'
 
+router = routers.DefaultRouter()
+#router.register('mainapp', views.salary)
 urlpatterns = [
     path('upload', views.upload, name = 'upload'),
     path('dashboard', views.dashboard, name = 'dashboard'),
@@ -18,9 +21,12 @@ urlpatterns = [
     path('api/chart/data/',ChartView.as_view(),name='chart-data'),
     path('application',views.application, name = 'application'),
     path('salary', views.salary, name = 'salary'),
+    path('api/', include(router.urls)),
+    #path('status/', views.salary),
     path('new_process', views.new_process, name = 'new_process'),
     path('invitation', views.invitation, name = 'invitation'),
     path('statistics', StatisticsView.as_view(), name = 'statistics'),
+    path('temp', views.temp, name = 'temp'),
 ]
 
 if settings.DEBUG:
