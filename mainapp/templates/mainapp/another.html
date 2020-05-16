@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="phoenix" sizes="76x76" href="{% static 'authenticate/css/phoenix.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'authenticate/css/phoenix.png' %}">
+    <meta name="viewreport" content="width=device-width,initial-scale-1.0">
+    <title>Candidate Hiring Process</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500&display=swap" rel="stylesheet">
+    <style media="screen">
+      .btn-secondary{
+        background: #e91d43;
+        border: 2px solid #e91d43;
+        border-radius: 0px;
+        width: 200px;
+        margin-top: 8px;
+        font-size: 18px;
+        margin-left:20%;
+      }
+
+      .btn-secondary:hover{
+        background: #e91d43;
+        border: 2px solid #e91d43;
+        color: #000000;
+
+      }
+      body{
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        font-family: 'Baloo Thambi 2', cursive;
+        color: #000000;
+        background-color: #fff;
+      }
+
+      .banner{
+        height: 120vh;
+        width: 100%;
+        background: #FFF0E4;
+        background-position: top;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .banner .navbar{
+        margin-top: 2%;
+      }
+
+      .banner .navbar-brand{
+        color: #000000;
+        font-size: 22px;
+        font-weight: 700;
+        margin-left: 10%;
+      }
+
+      .banner .nav{
+        margin-right: 10%;
+      }
+
+      .banner .nav li a{
+        color: #000;
+        font-size: 1.2em;
+      }
+
+      .spantext{
+        color: #fff;
+      }
+
+      ul{
+        margin-bottom: 20px;
+      }
+
+      ul a{
+        font-size: 18px;
+        color: white;
+      }
+
+      ul a:hover{
+        text-decoration: none;
+        color: #e91d43;
+      }
+
+      .form-control{
+        background: transparent;
+        border-radius: 0px;
+        border: 0px;
+        border-bottom: 1px solid #f44c89;
+        margin-bottom: 15px;
+        font-size: 15px;
+        color: white;
+        padding: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid banner">
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-md">
+            <a class="navbar-brand" href="{% url 'home' %}">Candidate Hiring Process</a>
+            <ul class="nav">
+              <li class="nav-item"><a class="nav-link" href="{% url 'mainapp:aboutc' %}">About</a></li>
+            </ul>
+          </nav>
+        </div>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
