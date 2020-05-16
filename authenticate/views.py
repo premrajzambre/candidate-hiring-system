@@ -97,8 +97,8 @@ def change_password(request):
 	context = {'form': form}
 	return render(request, 'authenticate/change_password.html', context)
 
-def about(requests):
-	return render(requests, 'authenticate/about.html',{})
+def about_home(requests):
+	return render(requests, 'authenticate/about_home.html',{})
 
 def login_success(requests):
 	return render(requests, 'authenticate/login_success.html',{})

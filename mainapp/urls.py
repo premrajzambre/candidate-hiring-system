@@ -27,6 +27,9 @@ urlpatterns = [
     path('invitation', views.invitation, name = 'invitation'),
     path('statistics', StatisticsView.as_view(), name = 'statistics'),
     path('temp', views.temp, name = 'temp'),
+    path('career', views.career, name = 'career'),
+    path('abouta', views.abouta, name = 'abouta'),
+    path('aboutc', views.aboutc, name = 'aboutc'),
 ]
 
 if settings.DEBUG:
