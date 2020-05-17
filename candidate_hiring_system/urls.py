@@ -23,4 +23,5 @@ urlpatterns = [
     path('mainapp/',include('mainapp.urls', namespace='mainapp')),
     #path('past', history, name='past'),
     path('newquiz/', include('newquiz.urls', namespace='newquiz')),
+    #path('posts/',include('posts.urls',namespace='posts')),
 ]
