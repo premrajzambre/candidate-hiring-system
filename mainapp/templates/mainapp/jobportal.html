@@ -1,0 +1,78 @@
+{% extends 'mainapp/dashboard.html' %}
+{% block content %}
+  {% if user.is_authenticated %}
+  <style>
+       .button {
+       border-radius: 4px;
+       background-color: #301934;
+       border: none;
+       color: white;
+       padding: 7px 35px;
+       text-align: center;
+       width:200px;
+       transition: all 0.5s;
+       font-size: 20px;
+       margin: 5px;
+       cursor: pointer;
+       }
+
+      .button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+      }
+
+      .button span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+      }
+
+      .button:hover span {
+      padding-right: 25px;
+      }
+
+      .button:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+    hr.style-one {
+      border: 0;
+      height: 3px;
+      background: #333;
+      background-image: linear-gradient(to right, gray, #fff, gray);
+    }
+    </style>
+    <hr class="style-one"/>
+  <div class="container">
+    <div class="container">
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-body text-center">
+            <h3>Create New Post</h3>
+            <button class="button" onclick="window.location.href = '{% url 'mainapp:past' %}';"><span>Create </span></button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body text-center">
+            <h3>Delete Post</h3>
+            <button class="button" onclick="window.location.href = '{% url 'mainapp:new_process' %}';"><span>Delete </span></button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body text-center">
+            <h3>Update Post</h3>
+            <button class="button" onclick="window.location.href = '{% url 'mainapp:invitation' %}';"><span>Update </span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <hr class="style-one"/><br><br>
+  {% endif %}
+{% endblock %}

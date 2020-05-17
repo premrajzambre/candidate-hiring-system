@@ -125,13 +125,25 @@
           <td>{{ applicant.full_name }}</td>
           <td>{{ applicant.email }}</td>
           <td>{{ applicant.contact }}</td>
-          <td>{{ applicant.degree }}</td>
+          {% if applicant.degree == 'be_btech' %}
+            <td>BE/BE.Tech</td>
+          {% elif applicant.degree == 'me_mtech' %}
+            <td>ME/ME.Tech</td>
+          {% else %}
+            <td>{{ applicant.degree }}</td>
+          {% endif %}
           <td>{{ applicant.degree_score }}</td>
           <td>{{ applicant.type }}</td>
           <td>{{ applicant.aptitude_score }}</td>
           <td>{{ applicant.technical_score }}</td>
           <td>{{ applicant.personality_score }}</td>
-          <td>{{ applicant.category }}</td>
+          {% if applicant.category == '1' %}
+            <td>Selected</td>
+          {% elif applicant.category == '0' %}
+            <td>Rejected</td>
+          {% else %}
+            <td>-</td>
+          {% endif %}
           <td>{{ applicant.hr_id }}</td>
           <td>{{ applicant.date_of_interview }}</td>
         </tr><hr class="style-two" />

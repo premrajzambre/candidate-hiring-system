@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from mainapp.views import history
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +22,4 @@ urlpatterns = [
     path('mainapp/',include('mainapp.urls', namespace='mainapp')),
     path('career/', include('career.urls', namespace='career')),
     path('newquiz/', include('newquiz.urls', namespace='newquiz')),
-    #path('posts/',include('posts.urls',namespace='posts')),
 ]

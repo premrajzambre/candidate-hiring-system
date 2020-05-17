@@ -59,8 +59,14 @@
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="{% url 'mainapp:statistics' %}">
-              <i class="material-icons">library_books</i>
+              <i class="material-icons">bar_chart</i>
               <p>Statistics</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'mainapp:jobportal' %}">
+              <i class="material-icons">trending_up</i>
+              <p>Job Portal</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -148,10 +154,10 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="{% url 'home' %}">Home</a>
-                  <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a>
-                  <a class="dropdown-item" href="{% url 'mainapp:abouta' %}">About</a>
-                  <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                  <a class="dropdown-item" href="{% url 'home' %}"><i class="material-icons">home</i>&nbsp;&nbsp;Home</a>
+                  <a class="dropdown-item" href="{% url 'edit_profile' %}"><i class="material-icons">perm_identity</i>&nbsp;&nbsp;Edit Profile</a>
+                  <a class="dropdown-item" href="{% url 'mainapp:abouta' %}"><i class="material-icons">help</i>&nbsp;&nbsp;About</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>&nbsp;&nbsp;Logout</a>
                 </div>
               </li>
             </ul>

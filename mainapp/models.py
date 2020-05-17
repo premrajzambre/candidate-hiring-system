@@ -5,10 +5,10 @@ from postgres_copy import CopyManager
 # Create your models here.
 class applicant(models.Model):
     DEGREE_CHOICES = (
-        ('be_btech','BE/B.Tech'),
-        ('me_mtech','ME/M.Tech'),
-        ('bsc','B.Sc'),
-        ('msc','M.Sc')
+        ('BE/B.Tech','BE/B.Tech'),
+        ('ME/M.Tech','ME/M.Tech'),
+        ('B.Sc','B.Sc'),
+        ('M.Sc','M.Sc')
     )
     DEGREE_SCORE_CHOICES = (
         (60,60),(61,61),(62,62),(63,63),(64,64),(65,65),(66,66),(67,67),(68,68),(69,69),
