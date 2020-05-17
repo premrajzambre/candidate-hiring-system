@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('authenticate.urls')),
     path('mainapp/',include('mainapp.urls', namespace='mainapp')),
-    #path('past', history, name='past'),
+    path('career/', include('career.urls', namespace='career')),
     path('newquiz/', include('newquiz.urls', namespace='newquiz')),
     #path('posts/',include('posts.urls',namespace='posts')),
 ]

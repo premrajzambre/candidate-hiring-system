@@ -175,11 +175,5 @@ def temp(request):
     context = {'loaded_data': data_html}
     return render(request, 'mainapp/temp.html', context)
 
-def career(request):
-	return render(request, 'mainapp/careers.html', {})
-
 def abouta(request):
 	return render(request, 'mainapp/about_admin.html', {})
-
-def aboutc(request):
-	return render(request, 'mainapp/about_candidate.html', {})
