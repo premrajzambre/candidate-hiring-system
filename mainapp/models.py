@@ -35,8 +35,8 @@ class applicant(models.Model):
     personality_score=models.IntegerField(default=0)
     average_score=models.IntegerField(default=0)
     category=models.CharField(max_length=10,choices=CATEGORY_CHOICES,null=True,blank=True)
-    hr_id=models.CharField(max_length=10,null=True)
-    date_of_interview=models.DateField(null=True)
+    hr_id=models.CharField(max_length=10,blank=True,null=True)
+    date_of_interview=models.DateField(blank=True,null=True)
     objects = CopyManager()
 
     def __str__(self):

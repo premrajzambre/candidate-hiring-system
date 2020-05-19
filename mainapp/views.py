@@ -78,36 +78,26 @@ class StatisticsView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'mainapp/statistics.html', {'selected': 100})
 
-def is_valid_queryparam(param):
-    return param != '' and param is not None
-
-def filter(request):
-    qs = applicant.objects.all()
-    title_contains_query = request.GET.get('title_contains')
-    date_of_interview = request.GET.get('date_of_interview')
-
-    if is_valid_queryparam(title_contains_query):
-        qs = qs.filter(email__iexact=title_contains_query)
-
-    if is_valid_queryparam(date_of_interview):
-        qs = qs.filter(date_of_interview__gte=date_of_interview)
-
-    return qs
-
 def history(request):
-    qs = filter(request)
-    """title_contains_query = request.GET.get('title_contains')
-    if title_contains_query != '' and title_contains_query is not None:
-        qs = applicant.objects.get(hr_id__iexact=title_contains_query)"""
-    #context = {'queryset': qs}
-    #title = 'List of all items'
-    #form = ApplicantSearchForm(request.POST or None)
-    context = {'queryset': qs,}
+    form = ApplicantSearchForm(request.POST or None)
+    context = {'form': form}
     if request.method == 'POST':
-        queryset = applicant.objects.all().filter(hr_id__iexact=request.POST.get('hr_id'),date_of_interview__icontains=request.POST.get('date_of_interview'))
+        hr=form['hr_id'].value()
+        #print(hr)
+        dt=request.POST.get('date_of_interview')
+        #print(dt)
+        if hr != '' and dt != '':
+            queryset = applicant.objects.all().filter(hr_id__iexact=form['hr_id'].value(),date_of_interview__icontains=request.POST.get('date_of_interview'))
+        elif hr != '' and dt == '':
+            queryset = applicant.objects.all().filter(hr_id__iexact=hr)
+        elif hr == '' and dt !='':
+            queryset = applicant.objects.all().filter(date_of_interview__iexact=dt)
+        elif hr == '' and dt == '':
+            queryset = applicant.objects.all().filter(technical_score=0)
+        #queryset = applicant.objects.all().filter(hr_id__iexact=form['hr_id'].value(),date_of_interview__icontains=request.POST.get('date_of_interview'))
         context = {
         'queryset': queryset,
-        'form': form,
+        'form': form
         }
     return render(request, 'mainapp/past.html', context)
 

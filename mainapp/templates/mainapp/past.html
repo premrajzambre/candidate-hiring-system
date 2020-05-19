@@ -56,18 +56,26 @@
       color: white;
     }
     .form-control{
-      background-color: transparent;
+      background: transparent;
+      border-radius: 0px;
+      border: 0px;
+      border-bottom: 1px solid #f44c89;
+      margin-bottom: 30px;
+      font-size: 18px;
+      color: white;
+      padding: 20px;
     }
+
   </style>
   <main role="main" class="container-fluid">
     <hr class="style-one"/><br>
-    <form action="" method="post">
+    <!--<form action="" method="post">
       {% csrf_token %}
       <div class="form-row">
           <div class="form-group col-4">
               <div class="input-group">
-                  <label for="hr_id">HR ID</label>
-                  <input class="form-control py-2 border-right-0 border" type="search" name="hr_id" placeholder="   HR ID exact..." />
+                  <!--<label for="hr_id">HR ID</label>-->
+                  <!--<input class="form-control py-2 border-right-0 border" type="search" name="hr_id" placeholder="   HR ID exact..." />
                   <span class="input-group-append">
                       <div class="input-group-text">
                           <i class="fa fa-search"></i>
@@ -75,11 +83,11 @@
                   </span>
               </div>
           </div>
-          &nbsp; &nbsp; &nbsp;
-        <div class="form-group col-md-2 col-lg-2">
-          <label for="date_of_interview">Interview date</label>
-          <input type="date" class="form-control" id="date_of_interview" name="date_of_interview">
-        </div>
+          &nbsp; &nbsp; &nbsp;-->
+        <!--<div class="form-group col-md-2 col-lg-2">-->
+          <!--<label for="date_of_interview">Interview date</label>-->
+          <!--<input type="date" class="form-control" id="date_of_interview" name="date_of_interview">
+        </div>-->
           &nbsp; &nbsp; &nbsp;
         <!--<div class="form-group col-md-2">
           <label for="category">Category</label>
@@ -90,19 +98,26 @@
             {% endfor %}
           </select>
         </div>-->
-        &nbsp; &nbsp; &nbsp; <!--<button type="submit" class="btn btn-primary">Search</button>--><input class="btn btn-primary" type="submit" value="Search" />
+        <!--&nbsp; &nbsp; &nbsp; <!--<button type="submit" class="btn btn-primary">Search</button>--><!--<input class="btn btn-primary" type="submit" value="Search" />
       </div>
 
-    </form><br>
-    <!--<form method="post" action="">
+    </form>--><br>
+    <form method="post" action="">
       {% csrf_token %}
-      {{form|crispy}}
-      <div class="form-group col-md-2 col-lg-2">
-        <label for="date_of_interview">Interview date</label>
-        <input type="date" class="form-control" id="date_of_interview" name="date_of_interview">
+      <div class="row">
+        <div class="form-group col-md-2 col-lg-2">
+          <label for="date_of_interview"><h6>&nbsp; &nbsp; &nbsp;&nbsp;HR ID</h6></label><br>
+          {{ form }}
+        </div>
+        <div class="form-group col-md-2 col-lg-2">
+          &nbsp; &nbsp; &nbsp;<label for="date_of_interview"><h6>&nbsp; &nbsp; &nbsp;Interview date</h6></label><br>
+          <input type="date" class="form-control" id="date_of_interview" name="date_of_interview">
+        </div>
+        <div class="col-md-2 col-lg-2">
+          <br><input class="btn btn-primary" type="submit" value="Search" />
+        </div>
       </div>
-      <input class="btn btn-primary" type="submit" value="Search" />
-  </form>-->
+    </form>
     <hr class="style-one"/>
     <div class="row">
       <table id="employee_data">
@@ -152,23 +167,6 @@
       <script>
         $("table").tableExport();
       </script>
-        <!--<ul>
-          {% for applicant in queryset %}
-            <li>
-              <span>Name: {{ applicant.full_name }}</span><br>
-              <span>Email: {{ applicant.email }}</span> &nbsp; &nbsp; &nbsp; <span>Contact: {{ applicant.contact }}</span><br>
-              <span>Highest Qualification with marks : {{ applicant.degree }} : {{ applicant.degree_score }}</span><br>
-              <span>Type : {{ applicant.type }}</span><br>
-              <span>Aptitude Score : {{ applicant.aptitude_score }}</span>&nbsp; &nbsp; &nbsp;
-              <span>Technical Score : {{ applicant.technical_score }}</span>&nbsp; &nbsp; &nbsp;
-              <span>Personality Score : {{ applicant.personality_score }}</span><br>
-              <span>Category : {{ applicant.category }}</span><br>
-              <span>HR ID : {{ applicant.hr_id }}</span>&nbsp; &nbsp; &nbsp;
-              <span>Interview Date : {{ applicant.date_of_interview }}</span>
-            </li>
-            <hr />
-          {% endfor %}
-        </ul>-->
       </div>
   </main>
   {% endif %}

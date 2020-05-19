@@ -48,11 +48,18 @@ class ApplicationForm(ModelForm):
         self.fields['aptitude_score'].widget.attrs['placeholder'] = 'Enter test score'
         self.fields['aptitude_score'].label = 'Aptitude Score  '
 
-class ApplicantSearchForm(forms.ModelForm):
+class ApplicantSearchForm(ModelForm):
     #date_of_interview=forms.DateField()
     class Meta:
         model = applicant
         fields = ['hr_id']
+
+    def __init__(self, *args, **kwargs):
+        super(ApplicantSearchForm, self).__init__(*args, **kwargs)
+
+        self.fields['hr_id'].widget.attrs['class'] = 'form-control'
+        self.fields['hr_id'].widget.attrs['placeholder'] = ' HR ID'
+        #self.fields['hr_id'].label = 'HR ID  '
 
 class Salaryprediction(forms.Form):
     level = forms.IntegerField()
