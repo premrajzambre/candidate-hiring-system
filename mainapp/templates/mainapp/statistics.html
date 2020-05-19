@@ -97,18 +97,19 @@
       background-image: linear-gradient(to right, gray, #fff, gray);
     }
   </style>
-  <h2 class="text-center" style="color:#e91d43;">Statistics</h2>
-  <hr class="style-one"/>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8" url-endpoint="{% url 'mainapp:chart-data' %}">
-        <div class="col-sm-6">
-          <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
-        <div class="col-sm-6">
-          <canvas id="myChart2" width="400" height="400"></canvas>
-        </div>
+  <h1 class="text-center" style="color:#e91d43;">Statistics</h1>
 
+  <div class="container">
+    <hr class="style-one"/>
+    <br><br>
+    <div class="row offset">
+      <div class="col-md-6">
+          <canvas id="myChart" width="200" height="200"></canvas><br><br>
+          <h3 class="text-center" style="color:#fff;">Bar Graph</h3>
+      </div>
+      <div class="col-md-6" style="border-left: 6px solid white;">
+        <canvas id="myChart2" width="200" height="200"></canvas><br><br>
+        <h3 class="text-center" style="color:#fff;">Doughnut Graph</h3>
       </div>
     </div>
   </div>
