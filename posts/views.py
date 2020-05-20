@@ -2,7 +2,7 @@ from django.db.models import Count, Q
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.views.generic import View, ListView, DetailView, CreateView
+from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from posts.forms import PostForm
 from posts.models import Post, Author, PostView
@@ -82,7 +82,7 @@ class PostListView(ListView):
     model = Post
     template_name = 'posts/blog.html'
     context_object_name = 'queryset'
-    paginate_by = 1
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         most_recent = Post.objects.order_by('-timestamp')[:3]
@@ -188,3 +188,54 @@ def post_create(request):
         'form': form
     }
     return render(request, "posts/post_create.html", context)
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'posts/post_create.html'
+    form_class = PostForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Update'
+        return context
+
+    def form_valid(self, form):
+        form.instance.author = get_author(self.request.user)
+        form.save()
+        return redirect(reverse("posts:post-detail", kwargs={
+            'pk': form.instance.pk
+        }))
+
+
+def post_update(request, id):
+    title = 'Update'
+    post = get_object_or_404(Post, id=id)
+    form = PostForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=post)
+    author = get_author(request.user)
+    if request.method == "POST":
+        if form.is_valid():
+            form.instance.author = author
+            form.save()
+            return redirect(reverse("posts:post-detail", kwargs={
+                'id': form.instance.id
+            }))
+    context = {
+        'title': title,
+        'form': form
+    }
+    return render(request, "posts/post_create.html", context)
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    success_url = '/blog'
+    template_name = 'posts/post_confirm_delete.html'
+
+
+def post_delete(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    return redirect(reverse("posts:post-list"))

@@ -17,5 +17,8 @@ urlpatterns = [
     # path('post/<id>/', post_detail, name='post-detail'),
     path('post/<pk>/', views.PostDetailView.as_view(), name='post-detail'),
     # path('post/<id>/update/', post_update, name='post-update'),
+    path('post/<pk>/update/', views.PostUpdateView.as_view(), name='post-update'),
+    # path('post/<id>/delete/', post_delete, name='post-delete'),
+    path('post/<pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
     #path('tinymce/', include('tinymce.urls')),
 ]

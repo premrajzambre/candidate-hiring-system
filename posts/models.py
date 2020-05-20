@@ -16,7 +16,7 @@ class PostView(models.Model):
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField()
+    profile_picture = models.ImageField(upload_to='avatar')
 
     def __str__(self):
         return self.user.username
@@ -49,7 +49,7 @@ class Post(models.Model):
     job_description = models.TextField(max_length=3000)
     skills = models.TextField(max_length=3000)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    thumbnail = models.ImageField()
+    thumbnail = models.ImageField(upload_to='thumbnail')
     featured = models.BooleanField()
     experience = models.CharField(max_length=100, choices=EXPERIENCE_CHOICES)
     employment_type = models.CharField(

@@ -15,13 +15,17 @@
     <main class="post blog-post col-lg-8">
       <div class="container">
         <div class="post-single">
-          <div class="post-thumbnail"><img src="{{ post.thumbnail }}" alt="..." class="img-fluid"></div>
+          <div class="post-thumbnail"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></div>
           <div class="post-details">
             <div class="post-meta d-flex justify-content-between">
               <div class="category">
                 {% for cat in post.categories.all %}
                 <a href="#">{{ cat }}</a>
                 {% endfor %}
+              </div>
+              <div>
+                <a href="{% url 'posts:post-update' pk=post.pk %}">Update</a>
+                <a href="{% url 'posts:post-delete' pk=post.pk %}">Delete</a>
               </div>
             </div>
             <h1>{{ post.blog_title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
