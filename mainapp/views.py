@@ -168,5 +168,6 @@ def temp(request):
 def abouta(request):
 	return render(request, 'mainapp/about_admin.html', {})
 
-def jobportal(request):
+"""def jobportal(request):
 	return render(request, 'mainapp/jobportal.html', {})
+"""

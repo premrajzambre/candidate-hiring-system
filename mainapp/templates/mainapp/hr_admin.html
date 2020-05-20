@@ -148,7 +148,7 @@
         </div>
         <div class="card">
           <div class="card-body text-center">
-            <h3>Start new interview process</h3>
+            <h3>Start interview process</h3>
             <button class="button" onclick="window.location.href = '{% url 'mainapp:new_process' %}';"><span>Start </span></button>
           </div>
         </div>
@@ -156,6 +156,12 @@
           <div class="card-body text-center">
             <h3>Send invitation for Interview</h3>
             <button class="button" onclick="window.location.href = '{% url 'mainapp:invitation' %}';"><span>Send </span></button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body text-center">
+            <h3>Create a Post for Vacancy</h3>
+            <button class="button" onclick="window.location.href = '{% url 'posts:post-create' %}';"><span>Create </span></button>
           </div>
         </div>
       </div>

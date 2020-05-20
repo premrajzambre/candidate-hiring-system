@@ -28,7 +28,7 @@ urlpatterns = [
     path('statistics', StatisticsView.as_view(), name = 'statistics'),
     path('temp', views.temp, name = 'temp'),
     path('abouta', views.abouta, name = 'abouta'),
-    path('jobportal', views.jobportal, name = 'jobportal'),
+    #path('jobportal', views.jobportal, name = 'jobportal'),
 ]
 
 if settings.DEBUG:
