@@ -20,6 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('authenticate.urls')),
     path('mainapp/',include('mainapp.urls', namespace='mainapp')),
-    path('career/', include('career.urls', namespace='career')),
+    path('posts/', include('posts.urls', namespace='posts')),
     path('newquiz/', include('newquiz.urls', namespace='newquiz')),
+    #path('tinymce/', include('tinymce.urls')),
 ]

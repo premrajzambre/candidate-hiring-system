@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'phone_field',
     'crispy_forms',
     'rest_framework',
-    'career',
+    'posts',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -152,7 +154,7 @@ EMAIL_HOST_PASSWORD = 'Fakeac#@321'
 
 # Tinymce
 
-TINYMCE_DEFAULT_CONFIG = {
+"""TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
@@ -178,3 +180,4 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
 }
+"""

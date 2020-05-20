@@ -1,0 +1,93 @@
+{% extends 'posts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .post-body img {
+    width: 100%;
+  }
+</style>
+
+<div class="container">
+  <div class="row">
+    <!-- Latest Posts -->
+    <main class="post blog-post col-lg-8">
+      <div class="container">
+        <div class="post-single">
+          <div class="post-thumbnail"><img src="{{ post.thumbnail }}" alt="..." class="img-fluid"></div>
+          <div class="post-details">
+            <div class="post-meta d-flex justify-content-between">
+              <div class="category">
+                {% for cat in post.categories.all %}
+                <a href="#">{{ cat }}</a>
+                {% endfor %}
+              </div>
+            </div>
+            <h1>{{ post.blog_title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
+            <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
+                class="author d-flex align-items-center flex-wrap">
+                <div class="avatar"><img src="{{ post.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
+                <div class="title"><span>{{ post.author.user.username }}</span></div>
+              </a>
+              <div class="d-flex align-items-center flex-wrap">
+                <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }} ago</div>
+                <div class="views"><i class="icon-eye"></i> {{ post.view_count }}</div>
+              </div>
+            </div>
+            <div class="post-body">
+              <h5>Job Description : </h5>{{ post.job_description | safe }}
+            </div>
+            <div>
+              <h5>Skills : </h5>{{ post.skills | safe }}
+            </div>
+            <div>
+              <h4>Hiring for the post : {{ post.job_title }} </h4>
+            </div>
+            </br>
+            <div>
+              <h5>Employment Type : {{ post.employment_type }}</h5>
+            </div>
+            </br>
+            <div>
+              <h5>Seniority level : {{ post.experience }}</h5>
+            </div>
+            </br>
+            <div>
+              <h5>No. of Available Vacancies : {{ post.vacancy }}</h5>
+            </div>
+            </br>
+            <div>
+              <h5>Job Status : {{ post.job_status }}</h5>
+            </div>
+            </br>
+            <div>
+              <button class="button" onclick="window.location.href = '{% url 'newquiz:newquiz_home' %}';"><span>Apply Now</span></button>
+            </div>
+            <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
+              {% if post.previous_post %}
+              <a href="{{ post.previous_post.get_absolute_url }}" class="prev-post text-left d-flex align-items-center">
+                <div class="icon prev"><i class="fa fa-angle-left"></i></div>
+                <div class="text"><strong class="text-primary">Previous Post </strong>
+                  <h6>{{ post.previous_post.title }}</h6>
+                </div>
+              </a>
+              {% endif %}
+              {% if post.next_post %}
+              <a href="{{ post.next_post.get_absolute_url }}"
+                class="next-post text-right d-flex align-items-center justify-content-end">
+                <div class="text"><strong class="text-primary">Next Post </strong>
+                  <h6>{{ post.next_post.title }}</h6>
+                </div>
+                <div class="icon next"><i class="fa fa-angle-right"> </i></div>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    {% include 'posts/sidebar.html' with most_recent=most_recent category_count=category_count %}
+  </div>
+</div>
+{% endblock content %}
