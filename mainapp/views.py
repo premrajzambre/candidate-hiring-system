@@ -182,6 +182,13 @@ def mail(request):
     context = {'form': form}
     return render(request, 'mainapp/interview.html', context)
 
+def approvalsuggest(df):
+    scaler = joblib.load('media/i_scaler.pkl')
+    model = joblib.load('media/i_predict.pkl')
+    df_sca = scaler.transform(df)
+    y_predict = model.predict(df_sca)
+    return y_predict
+
 def invitation(request):
     dt=applicant.objects.values_list('email', flat=True).get(technical_score=0)
     if request.method == 'POST':

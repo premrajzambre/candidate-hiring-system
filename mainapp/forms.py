@@ -2,9 +2,21 @@ from django import forms
 from django.forms import ModelForm
 from django.core.mail import send_mail
 from .models import applicant
-#from posts.models import Post
+from posts.models import Post
 
-#vc=Post.objects.filter(job_status__iexact='Active').values_list('job_title', flat=True)
+
+
+def get_my_choices():
+    def convert(list):
+        return tuple(list)
+
+    vc=Post.objects.filter(job_status__iexact='Active').values_list('job_title', flat=True)
+    l=len(vc)
+    ch= []
+    for i in range(l):
+        temp=(vc[i],vc[i])
+        ch.append(temp)
+    return convert(ch)
 
 class mailsearch(forms.Form):
     email = forms.EmailField()
@@ -55,7 +67,8 @@ class ApplicationForm(ModelForm):
         self.fields['type'].label = 'I am  '
 
         self.fields['job_post'].widget.attrs['class'] = 'form-control'
-        self.fields['job_post'].widget.attrs['placeholder'] = 'Applying post name'
+        self.fields['job_post'].widget.attrs['placeholder'] = '---------'
+        self.fields['job_post']=forms.ChoiceField(choices=get_my_choices() )
         self.fields['job_post'].label = 'Applying to  '
         self.fields['job_post'].help_text = '<ul class="form-text small spantext"><li>Enter the Post name for which you are applying.</li></ul>'
 
