@@ -41,7 +41,7 @@
           <!--<li class="nav-item"><a href="#" class="nav-link ">Contact</a>
               </li>-->
           {% if request.user.is_staff %}
-          <li class="nav-item"><a href="{% url 'posts:post-create' %}" class="nav-link ">Create</a>
+          <li class="nav-item"><a href="{% url 'posts:post-create' %}" class="nav-link active ">Create</a>
           </li>
           {% endif %}
         </ul>

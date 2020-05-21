@@ -1,8 +1,54 @@
 {% extends "mainapp/dashboard.html" %}
 {% block content %}
+<style media="screen">
+  .button {
+  border-radius: 4px;
+  background-color: #e91d43;
+  border: none;
+  color: black;
+  padding: 7px 35px;
+  text-align: center;
+  width:200px;
+  transition: all 0.5s;
+  font-size: 20px;
 
-    <div class="history">
-      {{ loaded_data | safe }}
+  cursor: pointer;
+  margin-left:30%;
+  }
+
+  .button:hover{
+    background: #301934;
+    border: 2px solid #301934;
+    color: #fff;
+  }
+
+  .custom-select{
+    position: relative;
+    font-family: Arial;
+  }
+
+</style>
+  <div class="container-fluid offset-md-2">
+    <div class="rwo justify-content-center">
+      <div class="col-lg-8 col-md-8">
+        <div class="card mb-4">
+          <div class="card-body" style="padding: 30px; margin-left:10%;">
+            <form method="post">
+              <label><H5>For which post do you want to start recruitment :   </H5></label>
+              <select name="posts" id="Job_post" class="custom-select" style="width:225px;">
+                <option value="Associate Engineer">Associate Engineer</option>
+                <option value="Senior Engineer">Senior Engineer</option>
+                <option value="Team Leader">Team Leader</option>
+                <option value="Project Architect">Project Architect</option>
+                <option value="Project Scrum Master">Project Scrum Master</option>
+                <option value="Project Delivery Manager">Project Delivery Manager</option>
+              </select>
+              <br><br>
+              <input class="button" type="submit" value="Start">
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-
+  </div>
 {% endblock %}

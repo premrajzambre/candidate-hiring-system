@@ -30,6 +30,7 @@ class applicant(models.Model):
     degree=models.CharField(max_length=10,choices=DEGREE_CHOICES)
     degree_score=models.IntegerField(choices=DEGREE_SCORE_CHOICES)
     type=models.CharField(max_length=15,choices=TYPE_CHOICS)
+    job_post=models.CharField(max_length=30,blank=True,null=True)
     aptitude_score=models.IntegerField(default=0)
     technical_score=models.IntegerField(default=0)
     personality_score=models.IntegerField(default=0)

@@ -3,17 +3,23 @@ from django.forms import ModelForm
 from django.core.mail import send_mail
 from .models import applicant
 
-class CanPass(forms.Form):
-    email = forms.EmailField()
+class mailsearch(ModelForm):
+    class Meta:
+        model = applicant
+        fields = ['email']
 
-    def __str__(self):
-        return self.email
+    def __init__(self, *args, **kwargs):
+        super(mailsearch, self).__init__(*args, **kwargs)
 
+        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['placeholder'] = "  Candidate's Email"
+        self.fields['email'].label = 'Email'
+        self.fields['email'].help_text = '<ul class="form-text small spantext"><li>Enter the email id of candidate.</li></ul>'
 
 class ApplicationForm(ModelForm):
     class Meta:
         model = applicant
-        fields = ('email', 'full_name', 'contact', 'degree', 'degree_score','type','aptitude_score')
+        fields = ('email', 'full_name', 'contact', 'degree', 'degree_score','type','job_post','aptitude_score')
 
     def __init__(self, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
@@ -43,6 +49,11 @@ class ApplicationForm(ModelForm):
         self.fields['type'].widget.attrs['class'] = 'form-control'
         self.fields['type'].widget.attrs['placeholder'] = '--choose--'
         self.fields['type'].label = 'I am  '
+
+        self.fields['job_post'].widget.attrs['class'] = 'form-control'
+        self.fields['job_post'].widget.attrs['placeholder'] = 'Applying post name'
+        self.fields['job_post'].label = 'Applying to  '
+        self.fields['job_post'].help_text = '<ul class="form-text small spantext"><li>Enter the Post name for which you are applying.</li></ul>'
 
         self.fields['aptitude_score'].widget.attrs['class'] = 'form-control'
         self.fields['aptitude_score'].widget.attrs['placeholder'] = 'Enter test score'

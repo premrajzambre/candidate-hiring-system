@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 from django.core.files.storage import FileSystemStorage
 from .forms import ApplicationForm, Salaryprediction
-from .forms import CanPass, ApplicantSearchForm
+from .forms import mailsearch, ApplicantSearchForm
 from django.http import HttpResponse, JsonResponse
 from .models import applicant
+from posts.models import Post
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
@@ -144,8 +145,42 @@ def salarystatus(X):
     except ValueError as e:
         return (e.args[0])
 
+pst = '0'
 def new_process(request):
-	return render(request, 'mainapp/new_process.html', {})
+    vc=Post.objects.filter(job_status__iexact='Active').values_list('job_title', flat=True)
+    if request.method =='POST':
+        global pst
+        pst=request.POST.get('Job_post')
+        return redirect('/mainapp/interview')
+    context = {
+        'vacancies':vc
+    }
+    return render(request, 'mainapp/new_process.html',context)
+
+def interview(request):
+    global pst
+    post=pst
+    vc=Post.objects.values_list('vacancy', flat=True).get(job_title__iexact=pst)
+    form = mailsearch(request.POST or None)
+    context = {
+        'post':post,
+        'vacancies':vc,
+        'form':form
+    }
+    ml=mail(request)
+    print(ml)
+    return render(request, 'mainapp/interview.html', context)
+
+def mail(request):
+    if request.method == 'POST':
+        form = mailsearch(request.POST)
+        if form.is_valid():
+            info = request.POST.get('email')
+            return info
+    else:
+        form = mailsearch()
+    context = {'form': form}
+    return render(request, 'mainapp/interview.html', context)
 
 def invitation(request):
     dt=applicant.objects.values_list('email', flat=True).get(technical_score=0)
@@ -160,10 +195,11 @@ def invitation(request):
 
 def temp(request):
     #import pandas as pd
-    data = pd.read_csv('media/Salary.csv')
-    data_html = data.to_html()
-    context = {'loaded_data': data_html}
-    return render(request, 'mainapp/temp.html', context)
+    #data = pd.read_csv('media/Salary.csv')
+    #data_html = data.to_html()
+    #context = {'loaded_data': data_html}
+
+    return render(request, 'mainapp/temp.html', {})
 
 def abouta(request):
 	return render(request, 'mainapp/about_admin.html', {})
