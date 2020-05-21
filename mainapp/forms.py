@@ -2,11 +2,15 @@ from django import forms
 from django.forms import ModelForm
 from django.core.mail import send_mail
 from .models import applicant
+#from posts.models import Post
 
-class mailsearch(ModelForm):
-    class Meta:
-        model = applicant
-        fields = ['email']
+#vc=Post.objects.filter(job_status__iexact='Active').values_list('job_title', flat=True)
+
+class mailsearch(forms.Form):
+    email = forms.EmailField()
+
+    def __str__(self):
+        return self.email
 
     def __init__(self, *args, **kwargs):
         super(mailsearch, self).__init__(*args, **kwargs)

@@ -20,6 +20,14 @@ class applicant(models.Model):
         ('Fresher','Fresher'),
         ('Experienced','Experienced')
     )
+    JOB_TITLE_CHOICES = (
+        ('Associate Engineer', 'Associate Engineer'),
+        ('Senior Engineer', 'Senior Engineer'),
+        ('Team Leader', 'Team Leader'),
+        ('Project Architect', 'Project Architect'),
+        ('Project Scrum Master', 'Project Scrum Master'),
+        ('Project Delivery Manager', 'Project Delivery Manager')
+    )
     CATEGORY_CHOICES = (
         ('1','Selected'),
         ('0','Rejected')
@@ -30,7 +38,7 @@ class applicant(models.Model):
     degree=models.CharField(max_length=10,choices=DEGREE_CHOICES)
     degree_score=models.IntegerField(choices=DEGREE_SCORE_CHOICES)
     type=models.CharField(max_length=15,choices=TYPE_CHOICS)
-    job_post=models.CharField(max_length=30,blank=True,null=True)
+    job_post=models.CharField(max_length=30,choices=JOB_TITLE_CHOICES,blank=True,null=True)
     aptitude_score=models.IntegerField(default=0)
     technical_score=models.IntegerField(default=0)
     personality_score=models.IntegerField(default=0)
