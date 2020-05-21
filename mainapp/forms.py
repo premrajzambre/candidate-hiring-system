@@ -30,7 +30,7 @@ class ApplicationForm(ModelForm):
         #self.fields['contact'].widget.attrs['class'] = 'form-control'
         #self.fields['contact'].widget.attrs['placeholder'] = 'Contact Number'
         self.fields['contact'].label = 'Phone/Mobile '
-        self.fields['full_name'].help_text = '<ul class="form-text small spantext"><li>Start from writing country code.</li></ul>'
+        self.fields['contact'].help_text = '<ul class="form-text small spantext"><li>Write country code first.</li></ul>'
 
         self.fields['degree'].widget.attrs['class'] = 'form-control'
         #self.fields[''].widget.attrs['placeholder'] = 'Email'

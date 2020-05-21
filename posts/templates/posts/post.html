@@ -7,6 +7,22 @@
   .post-body img {
     width: 100%;
   }
+  .btn-secondary{
+    background: #e91d43;
+    border: 2px solid #e91d43;
+    border-radius: 0px;
+    width: 200px;
+    margin-top: 8px;
+    font-size: 18px;
+    margin-left:0%;
+  }
+
+  .btn-secondary:hover{
+    background: #e91d43;
+    border: 2px solid #e91d43;
+    color: #000000;
+
+  }
 </style>
 
 <div class="container">
@@ -24,8 +40,10 @@
                 {% endfor %}
               </div>
               <div>
+                {% if request.user.is_staff %}
                 <a href="{% url 'posts:post-update' pk=post.pk %}">Update</a>
                 <a href="{% url 'posts:post-delete' pk=post.pk %}">Delete</a>
+                {% endif %}
               </div>
             </div>
             <h1>{{ post.blog_title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
@@ -41,32 +59,32 @@
             </div>
             <div class="post-body">
               <h5>Job Description : </h5>{{ post.job_description | safe }}
-            </div>
+            </div><br>
             <div>
               <h5>Skills : </h5>{{ post.skills | safe }}
-            </div>
+            </div><br>
             <div>
               <h4>Hiring for the post : {{ post.job_title }} </h4>
             </div>
-            </br>
+            <br>
             <div>
               <h5>Employment Type : {{ post.employment_type }}</h5>
             </div>
-            </br>
+            <br>
             <div>
               <h5>Seniority level : {{ post.experience }}</h5>
             </div>
-            </br>
+            <br>
             <div>
               <h5>No. of Available Vacancies : {{ post.vacancy }}</h5>
             </div>
-            </br>
+            <br>
             <div>
               <h5>Job Status : {{ post.job_status }}</h5>
             </div>
-            </br>
+            <br>
             <div>
-              <button class="button" onclick="window.location.href = '{% url 'newquiz:newquiz_home' %}';"><span>Apply Now</span></button>
+              <button class="btn btn-secondary" onclick="window.location.href = '{% url 'newquiz:newquiz_home' %}';"><span>Apply Now</span></button>
             </div>
             <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
               {% if post.previous_post %}

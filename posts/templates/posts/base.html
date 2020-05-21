@@ -4,6 +4,12 @@
 {% include "posts/head.html" %}
 
 <body>
+  <style media="screen">
+    .banner{
+      background: #FFF0E4;
+    }
+  </style>
+  <div class="container-fluid banner">
 
     {% include 'posts/header.html' %}
 
@@ -17,7 +23,7 @@
 
     {% block content %}
     {% endblock content %}
-
+</div>
     {% include 'posts/footer.html' %}
     {% include 'posts/scripts.html' %}
 
