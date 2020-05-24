@@ -1,12 +1,6 @@
 from django import forms
-#from tinymce.widgets import TinyMCE
+from ckeditor.widgets import CKEditorWidget
 from .models import Post
-
-
-"""class TinyMCEWidget(TinyMCE):
-    def use_required_attribute(self, *args):
-        return False
-"""
 
 class PostForm(forms.ModelForm):
     """job_description = forms.CharField(
@@ -20,6 +14,9 @@ class PostForm(forms.ModelForm):
             attrs={'required': False, 'cols': 30, 'rows': 10}
         )
     )"""
+
+    job_description = forms.CharField(widget=CKEditorWidget())
+    skills = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
         model = Post

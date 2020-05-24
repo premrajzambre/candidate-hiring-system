@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 User = get_user_model()
 
@@ -46,8 +47,8 @@ class Post(models.Model):
 
     blog_title = models.CharField(max_length=100)
     job_title = models.CharField(max_length=100, choices=JOB_TITLE_CHOICES)
-    job_description = models.TextField(max_length=3000)
-    skills = models.TextField(max_length=3000)
+    job_description = RichTextField()
+    skills = RichTextField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     thumbnail = models.ImageField(upload_to='thumbnail')
     featured = models.BooleanField()
