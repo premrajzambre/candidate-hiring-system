@@ -139,3 +139,7 @@ venv/
 
 # Visual Studio Code Folders
 .vscode/
+
+#media
+avatar/
+thumbnail/
