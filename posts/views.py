@@ -14,6 +14,8 @@ def get_author(user):
         return qs[0]
     return None
 
+def about(request):
+    return render(request, 'posts/about_candidate.html', {})
 
 class SearchView(View):
     def get(self, request, *args, **kwargs):
