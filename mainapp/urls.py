@@ -29,6 +29,7 @@ urlpatterns = [
     path('temp', views.temp, name = 'temp'),
     path('abouta', views.abouta, name = 'abouta'),
     path('interview', views.interview, name = 'interview'),
+    path('update_candidate/<str:pk>', views.update_candidate, name='update_candidate'),
 ]
 
 if settings.DEBUG:

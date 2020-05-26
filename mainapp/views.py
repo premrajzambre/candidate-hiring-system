@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 from django.core.files.storage import FileSystemStorage
-from .forms import ApplicationForm, Salaryprediction
+from .forms import ApplicationForm, Salaryprediction, UpinfoForm
 from .forms import mailsearch, ApplicantSearchForm
 from django.http import HttpResponse, JsonResponse
 from .models import applicant
@@ -122,7 +122,7 @@ def salary(request):
             print(level)
             ans=salarystatus(level)
             messages.success(request, "Your salary range is from {} Lpa to {} Lpa".format(ans[0],ans[1]))
-            print(ans)
+            #print(ans)
     form=Salaryprediction()
     context={
         'form':form
@@ -167,27 +167,56 @@ def interview(request):
         'vacancies':vc,
         'form':form
     }
-    ml=mail(request)
-    print(ml)
+    """ml=mail(request)
+    print(ml)"""
+    data = applicant.objects.all().filter(Q(technical_score=0), Q(job_post=post))
+    context = {
+        'post':post,
+        'vacancies':vc,
+        'data':data
+    }
     return render(request, 'mainapp/interview.html', context)
 
-def mail(request):
-    if request.method == 'POST':
-        form = mailsearch(request.POST)
+def update_candidate(request, pk):
+    ml = applicant.objects.get(email=pk)
+    form = UpinfoForm(instance=ml)
+
+    if request.method=='POST':
+        form = UpinfoForm(request.POST, instance=ml)
         if form.is_valid():
-            info = request.POST.get('email')
-            return info
-    else:
-        form = mailsearch()
-    context = {'form': form}
-    return render(request, 'mainapp/interview.html', context)
+            info = form.save(commit=False)
+            info.save()
+            myDict = (request.POST).dict()
+            df=pd.DataFrame(myDict, index=[0])
+            #print(df)
+            ans=approvalsuggest(df)[0]
+            print(ans)
+            if ans == 1:
+                messages.success(request, "Suggestion : Select")
+            else:
+                messages.success(request, "Suggestion : Reject")
+
+    context = {
+        'form':form,
+    }
+    return render(request, 'mainapp/update_candidate.html', context)
 
 def approvalsuggest(df):
-    scaler = joblib.load('media/i_scaler.pkl')
-    model = joblib.load('media/i_predict.pkl')
-    df_sca = scaler.transform(df)
-    y_predict = model.predict(df_sca)
-    return y_predict
+    try:
+        scaler = joblib.load('media/i_scaler.pkl')
+        model = joblib.load('media/i_predict.pkl')
+        X = ['aptitude_score', 'technical_score', 'personality_score','average_score']
+        y = 'category'
+        df_sca = scaler.transform(df[X])
+        y_predict = model.predict(df_sca)
+        #print(y_predict)
+        #if y_predict == 1:
+        #    ans = 'Select'
+        #elif y_predict == 0:
+        #    ans = 'Reject'
+        return y_predict
+    except ValueError as e:
+        return (e.args[0])
 
 def invitation(request):
     dt=applicant.objects.values_list('email', flat=True).get(technical_score=0)

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="phoenix" sizes="76x76" href="{% static 'authenticate/css/phoenix.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'authenticate/css/phoenix.png' %}">
+    <meta name="viewreport" content="width=device-width,initial-scale-1.0">
+    <title>Candidate Hiring Process</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500&display=swap" rel="stylesheet">
+    <style media="screen">
+      .btn-secondary{
+        background: #e91d43;
+        border: 2px solid #e91d43;
+        border-radius: 0px;
+        width: 200px;
+        margin-top: 8px;
+        font-size: 18px;
+        margin-left:20%;
+      }
+
+      .btn-secondary:hover{
+        background: #e91d43;
+        border: 2px solid #e91d43;
+        color: #000000;
+
+      }
+      body{
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        font-family: 'Baloo Thambi 2', cursive;
+        color: #000000;
+        background-color: #fcf7f8;
+      }
+
+      .banner{
+        height: 220vh;
+        width: 100%;
+        background: #FFF0E4	;
+        background-position: top;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .banner .navbar{
+        margin-top: 2%;
+      }
+
+      .banner .navbar-brand{
+        color: black;
+        font-size: 22px;
+        font-weight: 700;
+        margin-left: 10%;
+      }
+
+      .banner .nav{
+        margin-right: 10%;
+      }
+
+      .banner .nav li a{
+        color: #aaa;
+        font-size: 1.2em;
+      }
+
+      .spantext{
+        color: #000000;
+      }
+
+      ul{
+        margin-bottom: 20px;
+      }
+
+      ul a{
+        font-size: 18px;
+        color: white;
+      }
+
+      ul a:hover{
+        text-decoration: none;
+        color: #e91d43;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid banner">
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-md">
+            <a class="navbar-brand" href="#">Candidate Hiring Process</a>
+          </nav>
+          <h3 class="text-center" style="color:#e91d43;">Candidate Details</h3>
+        </div>
+        <div class="container" style="margin-top: 30px;padding:20px; box-shadow: 0px 1px 0px 10px gray;">
+          <div class="col-md-8  offset-md-3" style="margin:20px">
+
+            <form method="POST" action="">
+              {% csrf_token %}
+              {% if form.errors %}
+                <div class="alert alert-warning alert-dismissable" role="alert">
+                  <button class="close" data-dismiss="alert">
+                    <small><sup>x</sup></small>
+                  </button>
+                  <p>Your Form Has Errors...</p>
+                  {% for field in form %}
+                    {% if field.errors  %}
+                      {{ field.errors }}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {{ form.as_p }}
+              {% if messages %}
+                {% for message in messages %}
+                <div class="alert" role="alert">
+                  <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+                </div>
+                {% endfor %}
+              {% endif %}
+              <input type="submit" value="Update" class="btn btn-secondary">
+              <!--<button class="btn btn-secondary" onclick="window.location.href = '{% url 'mainapp:interview' %}';">Next </button>-->
+              <a class="btn btn-secondary" href="{% url 'mainapp:new_process' %}">Next</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

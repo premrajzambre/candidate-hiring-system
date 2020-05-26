@@ -11,6 +11,13 @@
       background: #333;
       background-image: linear-gradient(to right, gray, #fff, gray);
     }
+    table{
+      color:#000;
+      width:100%;
+    }
+    tr{
+      background-color:#fff;
+    }
   </style>
   <ul>
     <li>No of vacancies : {{ vacancies }}</li>
@@ -18,7 +25,7 @@
   </ul>
   <div class="container-fluid">
     <hr class="style-one"/>
-    <div class="rwo justify-content-center">
+    <!--<div class="rwo justify-content-center">
       <div class="col-lg-8 col-md-8">
         <form method="post">
           {% csrf_token %}
@@ -33,8 +40,24 @@
         </form>
       </div>
     </div>
-    <hr class="style-one"/><br>
+    <hr class="style-one"/><br>-->
     <h2 class="text-center" style="color:#e91d43;">Candidate Details</h2>
+    <table>
+      <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Applied Post</th>
+        <th>Update</th>
+      </tr>
+      {% for applicant in data %}
+      <tr>
+        <td>{{ applicant.email }}</td>
+        <td>{{ applicant.full_name }}</td>
+        <td>{{ applicant.job_post }}</td>
+        <td><a class="btn bt`n-sm btn-info" href="{% url 'mainapp:update_candidate' applicant.email %}">Update</a></td>
+      </tr>
+      {% endfor %}
+    </table>
   </div>
   {% endif %}
 {% endblock %}
