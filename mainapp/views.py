@@ -161,11 +161,12 @@ def interview(request):
     global pst
     post=pst
     vc=Post.objects.values_list('vacancy', flat=True).get(job_title__iexact=pst)
-    form = mailsearch(request.POST or None)
+    no=applicant.objects.all().filter(Q(technical_score=0),Q(job_post=pst)).count()
+    #form = mailsearch(request.POST or None)
     context = {
         'post':post,
         'vacancies':vc,
-        'form':form
+        'appcount': no,
     }
     """ml=mail(request)
     print(ml)"""
@@ -173,7 +174,8 @@ def interview(request):
     context = {
         'post':post,
         'vacancies':vc,
-        'data':data
+        'data':data,
+        'appcount': no,
     }
     return render(request, 'mainapp/interview.html', context)
 

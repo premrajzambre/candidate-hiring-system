@@ -15,33 +15,28 @@
       color:#000;
       width:100%;
     }
-    tr{
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      padding-left: 25px;
+      text-align: center;
+      background-color: #4CAF50;
+      color: white;
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    td{
       background-color:#fff;
+      border: 1px solid #ddd;
+      padding-left: 10px;
     }
   </style>
-  <ul>
-    <li>No of vacancies : {{ vacancies }}</li>
-    <li>No of applicants for {{ post }} : <!--{{ applicants_count }}--></li>
-  </ul>
+
   <div class="container-fluid">
+    {%  include 'mainapp/status.html' %}
     <hr class="style-one"/>
-    <!--<div class="rwo justify-content-center">
-      <div class="col-lg-8 col-md-8">
-        <form method="post">
-          {% csrf_token %}
-          <div class="row">
-            <div class="form-group col-md-4 col-lg-4">
-              {{ form.as_p }}
-            </div>
-            <div class="form-group col-md-3 col-lg-3">
-              <br><input class="btn btn-primary" type="submit" value="Search" />
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <hr class="style-one"/><br>-->
-    <h2 class="text-center" style="color:#e91d43;">Candidate Details</h2>
+    <br>
+    <h2 class="text-center" style="color:#e91d43;">List of Applied Candidates</h2><br>
     <table>
       <tr>
         <th>Email</th>
