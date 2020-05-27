@@ -161,7 +161,7 @@ def interview(request):
     global pst
     post=pst
     vc=Post.objects.values_list('vacancy', flat=True).get(job_title__iexact=pst)
-    no=applicant.objects.all().filter(Q(technical_score=0),Q(job_post=pst)).count()
+    no=applicant.objects.all().filter(Q(category=None),Q(job_post=pst)).count()
     #form = mailsearch(request.POST or None)
     context = {
         'post':post,
@@ -170,7 +170,7 @@ def interview(request):
     }
     """ml=mail(request)
     print(ml)"""
-    data = applicant.objects.all().filter(Q(technical_score=0), Q(job_post=post))
+    data = applicant.objects.all().filter(Q(category=None), Q(job_post=post))
     context = {
         'post':post,
         'vacancies':vc,
@@ -188,15 +188,29 @@ def update_candidate(request, pk):
         if form.is_valid():
             info = form.save(commit=False)
             info.save()
+            ap = int(request.POST.get('aptitude_score'))
+            ts = int(request.POST.get('technical_score'))
+            ps = int(request.POST.get('personality_score'))
+            avg=int((ap+ts+ps)/3)
             myDict = (request.POST).dict()
             df=pd.DataFrame(myDict, index=[0])
-            #print(df)
             ans=approvalsuggest(df)[0]
-            print(ans)
-            if ans == 1:
-                messages.success(request, "Suggestion : Select")
+            em=int(request.POST.get('average_score'))
+            if em != 0:
+                if ans == 1:
+                    messages.success(request, "Suggestion : Select")
+                else:
+                    messages.success(request, "Suggestion : Reject")
             else:
-                messages.success(request, "Suggestion : Reject")
+                messages.success(request, "Average Score is : {}".format(avg))
+            cat=request.POST.get('category')
+            if cat == '1':
+                subject = 'Candidate Hiring System | Congratulations'
+                message = 'Dear candidate,\n\tCongratulations...! We are glad to inform you that as per your performance in online assesment and interview process you are selected.\nYou will receive a mail for further process.\n\n\n\t\tThank You!\n\tCandidate Hiring System.\n\nThis is System generated mail. Do not reply.'
+                recepient = pk
+                send_mail(subject,message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+                messages.success(request, ('Mail sent successfully.'))
+                return redirect('/mainapp/new_process')
 
     context = {
         'form':form,
@@ -211,11 +225,6 @@ def approvalsuggest(df):
         y = 'category'
         df_sca = scaler.transform(df[X])
         y_predict = model.predict(df_sca)
-        #print(y_predict)
-        #if y_predict == 1:
-        #    ans = 'Select'
-        #elif y_predict == 0:
-        #    ans = 'Reject'
         return y_predict
     except ValueError as e:
         return (e.args[0])

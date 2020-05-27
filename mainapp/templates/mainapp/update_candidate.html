@@ -36,7 +36,7 @@
       }
 
       .banner{
-        height: 220vh;
+        height: 250vh;
         width: 100%;
         background: #FFF0E4	;
         background-position: top;
@@ -95,7 +95,7 @@
           <h3 class="text-center" style="color:#e91d43;">Candidate Details</h3>
         </div>
         <div class="container" style="margin-top: 30px;padding:20px; box-shadow: 0px 1px 0px 10px gray;">
-          <div class="col-md-8  offset-md-3" style="margin:20px">
+          <div class="col-md-10  offset-md-3" style="margin:20px">
 
             <form method="POST" action="">
               {% csrf_token %}
@@ -116,26 +116,30 @@
               {% if messages %}
                 {% for message in messages %}
                 <div class="alert" role="alert">
-                  <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+                  <h3 {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</h3>
                 </div>
                 {% endfor %}
               {% endif %}
+              <ul>
+                <li><strong>Note : </strong>Update the Technical Score, Personality Score and Average of Aptitude, Technical & Personality Score. Then Update the information. After that you can take suggestions from system. </li>
+              </ul>
+              <div class="row">
+                <div class="col-md-3">
+                  <input type="submit" value="Calculate Average" class="btn btn-secondary">
+                </div>
+                <div class="col-md-3">
+                  <input type="submit" value="Take Suggestion" class="btn btn-secondary">
+                </div>
+                <div class="col-md-3">
+                  <input type="submit" value="Update" class="btn btn-secondary">
+                </div>
+                <div class="col-md-3">
+                  <a class="btn btn-secondary" href="{% url 'mainapp:new_process' %}">Next</a>
+                  <!--<button class="btn btn-secondary" onclick="window.location.href = '{% url 'mainapp:new_process' %}';">Next </button>-->
+                </div>
+              </div>
             </form>
-            <ul>
-              <li><strong>Note : </strong>Update the Technical Score, Personality Score and Average of Aptitude, Technical & Personality Score. Then Update the information. After that you can take suggestions from system. </li>
-            </ul>
-            <div class="row">
-              <div class="col-md-4">
-                <input type="submit" value="Update" class="btn btn-secondary">
-              </div>
-              <div class="col-md-4">
-                <input type="submit" value="Take Suggestion" class="btn btn-secondary">
-              </div>
-              <div class="col-md-4">
-                <!--<a class="button" href="{% url 'mainapp:new_process' %}">Next</a>-->
-                <button class="btn btn-secondary" onclick="window.location.href = '{% url 'mainapp:new_process' %}';">Next </button>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
