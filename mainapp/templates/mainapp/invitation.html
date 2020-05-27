@@ -1,16 +1,36 @@
 {% extends 'mainapp/dashboard.html' %}
 {% block content %}
+<div class="rwo justify-content-center">
+  <div class="col-lg-8 col-md-8">
+    <div class="card mb-4">
+      <div class="card-body" style="padding: 30px; margin-left:10%;">
+        <form method="post">
+          {% csrf_token %}
+          <label><H5>For which post do you want to start recruitment :   </H5></label>
+          <select name="Job_post" id="Job_post" class="custom-select" style="width:225px;">
+            {% for vc in vacancies %}
+            <option value="{{ vc }}">{{ vc }}</option>
+            {% endfor %}
+          </select>
+          <br><br>
+          <label for="message"></label>
+          <textarea name="msg" rows="8" cols="80">'Dear Candidate,
+             Congratulations! We are glad to inform you that we will be taking your candidature forward in the
+             Selection process based on your performance in the online assessment.
+             Venue:
+             Date : DD/MM/YYYY    Time:
+             Sent from candidate_hiring_system'</textarea><br>
+          <input class="btn btn-secondary" type="submit" name="sent" value="Sent">
+          <!--<input class="button" type="submit" value="Start">-->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <div>
-  <form method="post">
+  <!--<form method="post">
     {% csrf_token %}
-    <label for="message"></label>
-    <textarea name="msg" rows="8" cols="80">'Dear Candidate,
-       Congratulations! We are glad to inform you that we will be taking your candidature forward in the
-       Selection process based on your performance in the online assessment.
-       Venue:
-       Date : DD/MM/YYYY    Time:
-       Sent from candidate_hiring_system'</textarea><br>
-    <input class="btn btn-secondary" type="submit" name="sent" value="Sent">
-  </form>
+
+  </form>-->
 </div>
 {% endblock %}

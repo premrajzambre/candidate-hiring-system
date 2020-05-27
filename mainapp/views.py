@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view
 from django.core import serializers
 from django.db.models import Q
 from candidate_hiring_system.settings import EMAIL_HOST_USER
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.contrib import messages
 import pickle
 from sklearn.externals import joblib
@@ -209,7 +209,6 @@ def update_candidate(request, pk):
                 message = 'Dear candidate,\n\tCongratulations...! We are glad to inform you that as per your performance in online assesment and interview process you are selected.\nYou will receive a mail for further process.\n\n\n\t\tThank You!\n\tCandidate Hiring System.\n\nThis is System generated mail. Do not reply.'
                 recepient = pk
                 send_mail(subject,message, EMAIL_HOST_USER, [recepient], fail_silently = False)
-                messages.success(request, ('Mail sent successfully.'))
                 return redirect('/mainapp/new_process')
 
     context = {
@@ -230,27 +229,22 @@ def approvalsuggest(df):
         return (e.args[0])
 
 def invitation(request):
-    dt=applicant.objects.values_list('email', flat=True).get(technical_score=0)
+    vc=Post.objects.filter(job_status__iexact='Active').values_list('job_title', flat=True)
+    pst=request.POST.get('Job_post')
+    print(pst)
+    dt=applicant.objects.values_list('email', flat=True).filter(Q(job_post=pst),Q(technical_score=0))
+    dt=list(dt)
     if request.method == 'POST':
         subject = 'Candidate Hiring System | Congratulations'
         message = request.POST.get('msg')
         recepient = dt
-        send_mail(subject,message, EMAIL_HOST_USER, [recepient], fail_silently = False)
-        messages.success(request, ('Invitation sent successfully.'))
+        email=EmailMessage(subject=subject,body=message,from_email=EMAIL_HOST_USER,to=[],bcc=recepient,)
+        email.send()
         return redirect('/mainapp/hr_admin')
-    return render(request, 'mainapp/invitation.html',{})
-
-def temp(request):
-    #import pandas as pd
-    #data = pd.read_csv('media/Salary.csv')
-    #data_html = data.to_html()
-    #context = {'loaded_data': data_html}
-
-    return render(request, 'mainapp/temp.html', {})
+    context = {
+        'vacancies':vc
+    }
+    return render(request, 'mainapp/invitation.html',context)
 
 def abouta(request):
 	return render(request, 'mainapp/about_admin.html', {})
-
-"""def jobportal(request):
-	return render(request, 'mainapp/jobportal.html', {})
-"""
