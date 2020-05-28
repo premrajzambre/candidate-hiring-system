@@ -2,13 +2,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from . import views
-from posts.views import IndexView, PostListView, PostCreateView, PostDetailView
+#from posts.views import IndexView, PostListView, PostCreateView, PostDetailView
+from posts.views import PostListView, PostCreateView, PostDetailView
 
 app_name = "posts"
 
 urlpatterns = [
     # path('', index),
-    path('', views.IndexView.as_view(), name='post_home'),
+    #path('', views.IndexView.as_view(), name='post_home'),
     # path('blog/', post_list, name='post-list'),
     path('blog/', views.PostListView.as_view(), name='blog'),
     path('about/', views.about, name='about'),

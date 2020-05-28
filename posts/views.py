@@ -50,10 +50,10 @@ def search(request):
     return render(request, 'posts/search_results.html', context)
 
 
-class IndexView(View):
+"""class IndexView(View):
 
     def get(self, request, *args, **kwargs):
-        featured = Post.objects.filter(featured=True)
+        featured = Post.objects.filter(Q(featured=True), Q(job_status='Active'))
         latest = Post.objects.order_by('-timestamp')[0:3]
         context = {
             'object_list': featured,
@@ -63,7 +63,7 @@ class IndexView(View):
 
 
 def index(request):
-    featured = Post.objects.filter(featured=True)
+    featured = Post.objects.filter(Q(featured=True), Q(job_status='Active'))
     latest = Post.objects.order_by('-timestamp')[0:3]
 
     if request.method == "POST":
@@ -77,7 +77,7 @@ def index(request):
         'latest': latest,
         'form': form
     }
-    return render(request, 'posts/index.html', context)
+    return render(request, 'posts/index.html', context)"""
 
 
 class PostListView(ListView):
@@ -87,7 +87,7 @@ class PostListView(ListView):
     paginate_by = 2
 
     def get_context_data(self, **kwargs):
-        most_recent = Post.objects.order_by('-timestamp')[:3]
+        most_recent = Post.objects.filter(job_status='Active').order_by('-timestamp')[:3]
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
         context['page_request_var'] = "page"
@@ -95,7 +95,7 @@ class PostListView(ListView):
 
 
 def post_list(request):
-    most_recent = Post.objects.order_by('-timestamp')[:3]
+    most_recent = Post.objects.filter(job_status='Active').order_by('-timestamp')[:3]
     post_list = Post.objects.all()
     paginator = Paginator(post_list, 4)
     page_request_var = 'page'
@@ -131,7 +131,7 @@ class PostDetailView(DetailView):
         return obj
 
     def get_context_data(self, **kwargs):
-        most_recent = Post.objects.order_by('-timestamp')[:3]
+        most_recent = Post.objects.filter(job_status='Active').order_by('-timestamp')[:3]
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
         context['page_request_var'] = "page"
@@ -144,7 +144,7 @@ class PostDetailView(DetailView):
 
 
 def post_detail(request, id):
-    most_recent = Post.objects.order_by('-timestamp')[:3]
+    most_recent = Post.objects.filter(job_status='Active').order_by('-timestamp')[:3]
     post = get_object_or_404(Post, id=id)
 
     if request.user.is_authenticated:

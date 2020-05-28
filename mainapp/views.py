@@ -146,6 +146,7 @@ def salarystatus(X):
         return (e.args[0])
 
 pst = '0'
+can_interviewed = 0
 def new_process(request):
     vc=Post.objects.filter(job_status__iexact='Active').values_list('job_title', flat=True)
     if request.method =='POST':
@@ -163,10 +164,12 @@ def interview(request):
     vc=Post.objects.values_list('vacancy', flat=True).get(job_title__iexact=pst)
     no=applicant.objects.all().filter(Q(category=None),Q(job_post=pst)).count()
     #form = mailsearch(request.POST or None)
+    global can_interviewed
     context = {
         'post':post,
         'vacancies':vc,
         'appcount': no,
+        'can_interviewed':can_interviewed,
     }
     """ml=mail(request)
     print(ml)"""
@@ -176,6 +179,7 @@ def interview(request):
         'vacancies':vc,
         'data':data,
         'appcount': no,
+        'can_interviewed':can_interviewed,
     }
     return render(request, 'mainapp/interview.html', context)
 
@@ -203,14 +207,32 @@ def update_candidate(request, pk):
                     messages.success(request, "Suggestion : Reject")
             else:
                 messages.success(request, "Average Score is : {}".format(avg))
+            global pst
+            inc = Post.objects.get(job_title=pst)
+            vac = inc.vacancy
+            #print(vac)
+            #inc.save()
             cat=request.POST.get('category')
             if cat == '1':
+                vac -= 1
+                inc.vacancy = vac
+                inc.save()
+                if inc.vacancy == 0:
+                    inc.job_status = 'Expired'
+                    inc.save()
                 subject = 'Candidate Hiring System | Congratulations'
                 message = 'Dear candidate,\n\tCongratulations...! We are glad to inform you that as per your performance in online assesment and interview process you are selected.\nYou will receive a mail for further process.\n\n\n\t\tThank You!\n\tCandidate Hiring System.\n\nThis is System generated mail. Do not reply.'
                 recepient = pk
                 send_mail(subject,message, EMAIL_HOST_USER, [recepient], fail_silently = False)
                 return redirect('/mainapp/new_process')
+            """exp = 'Expired'
+            if vac == 0:
+                inc.job_status = exp
+                inc.save()
+            if vac == 0:"""
 
+            global can_interviewed
+            can_interviewed += 1
     context = {
         'form':form,
     }
