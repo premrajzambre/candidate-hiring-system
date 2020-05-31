@@ -18,7 +18,7 @@ from candidate_hiring_system.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail, EmailMessage
 from django.contrib import messages
 import pickle
-from sklearn.externals import joblib
+import joblib
 import json
 import numpy as np
 from sklearn import preprocessing
@@ -132,7 +132,7 @@ def salary(request):
 def salarystatus(X):
     try:
         salmdl = joblib.load('media/salary_predict.pkl')
-        y_pred=salmdl.predict(X)
+        y_pred=salmdl.predict([[X]])
         y_pred=y_pred[0]
         s_min=(int)(y_pred-100000)/100000
         s_min=(int)(s_min)
@@ -220,6 +220,8 @@ def update_candidate(request, pk):
                 if inc.vacancy == 0:
                     inc.job_status = 'Expired'
                     inc.save()
+                global can_interviewed
+                can_interviewed += 1
                 subject = 'Candidate Hiring System | Congratulations'
                 message = 'Dear candidate,\n\tCongratulations...! We are glad to inform you that as per your performance in online assesment and interview process you are selected.\nYou will receive a mail for further process.\n\n\n\t\tThank You!\n\tCandidate Hiring System.\n\nThis is System generated mail. Do not reply.'
                 recepient = pk
@@ -231,8 +233,6 @@ def update_candidate(request, pk):
                 inc.save()
             if vac == 0:"""
 
-            global can_interviewed
-            can_interviewed += 1
     context = {
         'form':form,
     }

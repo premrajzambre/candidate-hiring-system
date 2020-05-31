@@ -34,7 +34,7 @@ pytoml>=0.1.21
 pytz>=2020.1
 requests>=2.22.0
 retrying>=1.3.3
-scikit-learn==0.19.2
+scikit-learn==0.23.1
 scipy>=1.4.1
 six>=1.14.0
 sklearn>=0.0
