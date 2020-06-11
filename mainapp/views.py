@@ -223,7 +223,7 @@ def update_candidate(request, pk):
                 global can_interviewed
                 can_interviewed += 1
                 subject = 'Candidate Hiring System | Congratulations'
-                message = 'Dear candidate,\n\tCongratulations...! We are glad to inform you that as per your performance in online assesment and interview process you are selected.\nYou will receive a mail for further process.\n\n\n\t\tThank You!\n\tCandidate Hiring System.\n\nThis is System generated mail. Do not reply.'
+                message = 'Dear candidate,\n\tCongratulations...! We are glad to inform you that as per your performance in online assesment and interview process you are selected.\nYou will receive a mail for further process.\n\tIf you want to predict salary please click here... http://localhost:8000/mainapp/salary\n\n\n\t\tThank You!\n\tCandidate Hiring System.\n\nThis is System generated mail. Do not reply.'
                 recepient = pk
                 send_mail(subject,message, EMAIL_HOST_USER, [recepient], fail_silently = False)
                 return redirect('/mainapp/new_process')
